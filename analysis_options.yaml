@@ -1,0 +1,41 @@
+analyzer:
+  plugins:
+    - dart_code_metrics
+  exclude: [ lib/**.g.dart, lib/**_test_**.dart, lib/**.config.dart ]
+
+linter:
+  rules:
+    - prefer_relative_imports
+
+dart_code_metrics:
+  extends:
+    - package:dart_code_metrics_presets/all.yaml
+  rules-exclude:
+    - lib/**/dependency_injection.config.dart
+    - lib/**/*.g.dart
+    - lib/**/*.freezed.dart
+    - lib/firebase_options.dart
+    - lib/firebase_options_dev.dart
+    - test/**
+  rules:
+    - prefer-match-file-name: false
+    - avoid-non-ascii-symbols: false
+    - prefer-single-widget-per-file: false
+    - no-magic-number: false
+    - prefer-moving-to-variable: false
+    - avoid-ignoring-return-values: false
+    - no-empty-block: false
+    - format-comment: false
+    - avoid-shrink-wrap-in-lists: false
+    - prefer-extracting-callbacks: false
+    - no-equal-arguments: false
+    - prefer-static-class:
+        ignore-private: true
+        ignore-names:
+          - router
+          - getIt
+          - (.*)configure(.*)
+          - (.*)BottomSheet
+    - avoid-late-keyword: false
+    - avoid-passing-async-when-sync-expected: false
+    - avoid-throw-in-catch-block: false
