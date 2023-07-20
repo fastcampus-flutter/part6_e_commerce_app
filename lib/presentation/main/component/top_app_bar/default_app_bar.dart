@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../cubit/bottom_nav.dart';
+import '../../cubit/bottom_nav_cubit.dart';
 
 class DefaultAppBar extends StatelessWidget {
   const DefaultAppBar(this.bottomNav, {super.key});
