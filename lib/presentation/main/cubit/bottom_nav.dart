@@ -4,4 +4,6 @@ enum BottomNav { home, category, search, user }
 
 class BottomNavCubit extends Cubit<BottomNav> {
   BottomNavCubit() : super(BottomNav.home);
+
+  void changeNavIndex(int index) => emit(BottomNav.values[index]);
 }
