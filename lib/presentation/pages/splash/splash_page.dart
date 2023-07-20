@@ -1,30 +1,31 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../routes/route_path.dart';
 
-class SplashPage extends StatelessWidget {
+
+// TODO bloc로 로그인 개발
+class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
   @override
+  State<SplashPage> createState() => _SplashPageState();
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 2),()=>context.go(RoutePath.home));
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('splash')),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'splash_page',
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            ElevatedButton(
-              onPressed: () => context.push(RoutePath.home),
-              child: Text('go home'),
-            ),
-          ],
-        ),
-      ),
+      body: Center(child: SvgPicture.asset('assets/svg/main_logo.svg'),),
+     backgroundColor: Color(0xFF5F0080),
     );
   }
 }
