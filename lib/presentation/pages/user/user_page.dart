@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class UserPage extends StatelessWidget {
+  const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'home_page',
+        'user_page',
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
     );

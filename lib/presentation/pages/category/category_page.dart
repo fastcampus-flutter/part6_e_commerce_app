@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class CategoryPage extends StatelessWidget {
+  const CategoryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Text(
-        'home_page',
+        'category_page',
         style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
       ),
     );
