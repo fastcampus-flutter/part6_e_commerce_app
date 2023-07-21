@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
+import '../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../core/theme/custom/custom_theme.dart';
 import '../../cubit/mall_type_cubit.dart';
 
@@ -31,22 +32,50 @@ class HomeAppBar extends StatelessWidget {
                 ),
               ),
             ),
-            title: SizedBox(
-              height: 28,
-              child: DefaultTabController(
-                length: MallType.values.length,
-                initialIndex: state.index,
-                child: TabBar(
-                  tabs: List.generate(
-                    MallType.values.length,
-                    (index) => Tab(text: MallType.values[index].toName),
+            title: AnimatedContainer(
+              decoration: BoxDecoration(
+                color: (state.isMarket)
+                    ? colorScheme.primaryContainer
+                    : colorScheme.surface,
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+              ),
+              child: SizedBox(
+                height: 28,
+                child: DefaultTabController(
+                  length: MallType.values.length,
+                  initialIndex: state.index,
+                  child: TabBar(
+                    tabs: List.generate(
+                      MallType.values.length,
+                      (index) => Tab(text: MallType.values[index].toName),
+                    ),
+                    isScrollable: true,
+                    indicator: BoxDecoration(
+                      color: (state.isMarket)
+                          ? colorScheme.background
+                          : colorScheme.primary,
+                      borderRadius: const BorderRadius.all(Radius.circular(16)),
+                    ),
+                    indicatorSize: TabBarIndicatorSize.tab,
+                    dividerColor: Colors.transparent,
+                    labelColor: (state.isMarket)
+                        ? colorScheme.primary
+                        : colorScheme.onPrimary,
+                    labelStyle: Theme.of(context).textTheme.labelLarge.bold,
+                    labelPadding: const EdgeInsets.symmetric(horizontal: 12),
+                    unselectedLabelColor: (state.isMarket)
+                        ? colorScheme.onPrimary
+                        : colorScheme.contentPrimary,
+                    unselectedLabelStyle:
+                        Theme.of(context).textTheme.labelLarge,
+                    onTap: (index) =>
+                        context.read<MallTypeCubit>().changeMallType(index),
+                    splashBorderRadius:
+                        const BorderRadius.all(Radius.circular(16)),
                   ),
-                  labelColor: Colors.black,
-                  unselectedLabelColor: Colors.black,
-                  onTap: (index) =>
-                      context.read<MallTypeCubit>().changeMallType(index),
                 ),
               ),
+              duration: const Duration(milliseconds: 400),
             ),
             actions: [
               Padding(
