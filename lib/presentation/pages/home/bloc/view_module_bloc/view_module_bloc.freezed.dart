@@ -19,6 +19,8 @@ mixin _$ViewModuleState {
   Status get status => throw _privateConstructorUsedError;
   ErrorResponse get error => throw _privateConstructorUsedError;
   int get tabId => throw _privateConstructorUsedError;
+  int get currentPage => throw _privateConstructorUsedError;
+  bool get isEndOfPage => throw _privateConstructorUsedError;
   List<Widget> get viewModules => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -36,6 +38,8 @@ abstract class $ViewModuleStateCopyWith<$Res> {
       {Status status,
       ErrorResponse error,
       int tabId,
+      int currentPage,
+      bool isEndOfPage,
       List<Widget> viewModules});
 }
 
@@ -55,6 +59,8 @@ class _$ViewModuleStateCopyWithImpl<$Res, $Val extends ViewModuleState>
     Object? status = null,
     Object? error = null,
     Object? tabId = null,
+    Object? currentPage = null,
+    Object? isEndOfPage = null,
     Object? viewModules = null,
   }) {
     return _then(_value.copyWith(
@@ -70,6 +76,14 @@ class _$ViewModuleStateCopyWithImpl<$Res, $Val extends ViewModuleState>
           ? _value.tabId
           : tabId // ignore: cast_nullable_to_non_nullable
               as int,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      isEndOfPage: null == isEndOfPage
+          ? _value.isEndOfPage
+          : isEndOfPage // ignore: cast_nullable_to_non_nullable
+              as bool,
       viewModules: null == viewModules
           ? _value.viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
@@ -90,6 +104,8 @@ abstract class _$$_ViewModuleStateCopyWith<$Res>
       {Status status,
       ErrorResponse error,
       int tabId,
+      int currentPage,
+      bool isEndOfPage,
       List<Widget> viewModules});
 }
 
@@ -107,6 +123,8 @@ class __$$_ViewModuleStateCopyWithImpl<$Res>
     Object? status = null,
     Object? error = null,
     Object? tabId = null,
+    Object? currentPage = null,
+    Object? isEndOfPage = null,
     Object? viewModules = null,
   }) {
     return _then(_$_ViewModuleState(
@@ -122,6 +140,14 @@ class __$$_ViewModuleStateCopyWithImpl<$Res>
           ? _value.tabId
           : tabId // ignore: cast_nullable_to_non_nullable
               as int,
+      currentPage: null == currentPage
+          ? _value.currentPage
+          : currentPage // ignore: cast_nullable_to_non_nullable
+              as int,
+      isEndOfPage: null == isEndOfPage
+          ? _value.isEndOfPage
+          : isEndOfPage // ignore: cast_nullable_to_non_nullable
+              as bool,
       viewModules: null == viewModules
           ? _value._viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
@@ -137,6 +163,8 @@ class _$_ViewModuleState implements _ViewModuleState {
       {this.status = Status.initial,
       this.error = const ErrorResponse(),
       this.tabId = 0,
+      this.currentPage = 1,
+      this.isEndOfPage = false,
       final List<Widget> viewModules = const <Widget>[]})
       : _viewModules = viewModules;
 
@@ -149,6 +177,12 @@ class _$_ViewModuleState implements _ViewModuleState {
   @override
   @JsonKey()
   final int tabId;
+  @override
+  @JsonKey()
+  final int currentPage;
+  @override
+  @JsonKey()
+  final bool isEndOfPage;
   final List<Widget> _viewModules;
   @override
   @JsonKey()
@@ -160,7 +194,7 @@ class _$_ViewModuleState implements _ViewModuleState {
 
   @override
   String toString() {
-    return 'ViewModuleState(status: $status, error: $error, tabId: $tabId, viewModules: $viewModules)';
+    return 'ViewModuleState(status: $status, error: $error, tabId: $tabId, currentPage: $currentPage, isEndOfPage: $isEndOfPage, viewModules: $viewModules)';
   }
 
   @override
@@ -171,12 +205,22 @@ class _$_ViewModuleState implements _ViewModuleState {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.error, error) || other.error == error) &&
             (identical(other.tabId, tabId) || other.tabId == tabId) &&
+            (identical(other.currentPage, currentPage) ||
+                other.currentPage == currentPage) &&
+            (identical(other.isEndOfPage, isEndOfPage) ||
+                other.isEndOfPage == isEndOfPage) &&
             const DeepCollectionEquality()
                 .equals(other._viewModules, _viewModules));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error, tabId,
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      error,
+      tabId,
+      currentPage,
+      isEndOfPage,
       const DeepCollectionEquality().hash(_viewModules));
 
   @JsonKey(ignore: true)
@@ -191,6 +235,8 @@ abstract class _ViewModuleState implements ViewModuleState {
       {final Status status,
       final ErrorResponse error,
       final int tabId,
+      final int currentPage,
+      final bool isEndOfPage,
       final List<Widget> viewModules}) = _$_ViewModuleState;
 
   @override
@@ -199,6 +245,10 @@ abstract class _ViewModuleState implements ViewModuleState {
   ErrorResponse get error;
   @override
   int get tabId;
+  @override
+  int get currentPage;
+  @override
+  bool get isEndOfPage;
   @override
   List<Widget> get viewModules;
   @override

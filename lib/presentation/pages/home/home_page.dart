@@ -5,7 +5,6 @@ import '../../../core/utils/constant.dart';
 import '../../../core/utils/dialog/common_dialog.dart';
 import '../../../core/utils/extensions.dart';
 import '../../../dependency_injection.dart';
-import '../../../domain/usecase/display/display.usecase.dart';
 import '../../main/cubit/mall_type_cubit.dart';
 import 'bloc/menu_bloc/menu_bloc.dart';
 import 'component/global_nav/global_nav_bar.dart';
@@ -19,8 +18,8 @@ class HomePage extends StatelessWidget {
     return BlocBuilder<MallTypeCubit, MallType>(
       builder: (_, state) {
         return BlocProvider(
-          create: (_) => MenuBloc(getIt<DisplayUsecase>())
-            ..add(MenuInitialized(mallType: state)),
+          create: (_) =>
+              getIt<MenuBloc>()..add(MenuInitialized(mallType: state)),
           child: const HomeView(),
         );
       },

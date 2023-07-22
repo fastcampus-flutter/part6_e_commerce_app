@@ -11,5 +11,6 @@ abstract class DisplayRepository extends Repository {
 
   Future<ResponseWrapper<List<ViewModule>>> getViewModulesByTabId({
     required int tabId,
+    required int page,
   });
 }
