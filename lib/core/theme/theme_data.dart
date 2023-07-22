@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'constant/app_colors.dart';
 import 'custom/custom_theme.dart';
 
 class CustomThemeData {
@@ -8,5 +9,6 @@ class CustomThemeData {
         colorScheme: CustomTheme.colorScheme,
         fontFamily: 'Pretendard',
         textTheme: CustomTheme.textTheme,
+        dividerTheme: DividerThemeData(color: AppColors.outline),
       );
 }
