@@ -6,6 +6,6 @@ class ViewModuleState with _$ViewModuleState {
     @Default(Status.initial) Status status,
     @Default(ErrorResponse()) ErrorResponse error,
     @Default(0) int tabId,
-    @Default(<ViewModule>[]) List<ViewModule> viewModules,
+    @Default(<Widget>[]) List<Widget> viewModules,
   }) = _ViewModuleState;
 }
