@@ -18,7 +18,8 @@ class DisplayMockApi implements DisplayApi {
     //   ),
     // );
 
-    return Future(
+    return Future.delayed(
+      const Duration(milliseconds: 400),
       () => ResponseWrapper(
         status: 'SUCCESS',
         code: '0000',
@@ -39,7 +40,7 @@ class DisplayMockApi implements DisplayApi {
   ) {
     if (page == 4) {
       return Future.delayed(
-        Duration(seconds: 2),
+        Duration(milliseconds: 800),
         () => ResponseWrapper(
           status: 'SUCCESS',
           code: '0000',
@@ -64,7 +65,7 @@ class DisplayMockApi implements DisplayApi {
     }
 
     return Future.delayed(
-      Duration(seconds: 2),
+      Duration(milliseconds: 800),
       () => ResponseWrapper(
         status: 'SUCCESS',
         code: '0000',
