@@ -23,6 +23,7 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
 
   ViewModuleBloc(this._displayUsecase) : super(ViewModuleState()) {
     on<ViewModuleInitialized>(_onViewModuleInitialized);
+    on<ViewModuleFetched>(_onViewModuleFetched);
   }
 
   Future<void> _onViewModuleInitialized(
@@ -62,9 +63,63 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
     }
   }
 
-  Future<Result<List<ViewModule>>> _fetch({required int tabId}) async {
+  Future<void> _onViewModuleFetched(
+    ViewModuleFetched event,
+    Emitter<ViewModuleState> emit,
+  ) async {
+    //끝 페이지인 경우 리턴
+    if (state.isEndOfPage) return;
+    final nextPage = state.currentPage + 1;
+    final tabId = state.tabId;
+    emit(state.copyWith(status: Status.loading));
+    try {
+      final response = await _fetch(tabId: tabId, page: nextPage);
+      response.when(
+        success: (data) {
+          // 다음 페이지 호출시 리스트가 비어있는 경우 isEndOfPage => true
+          if (data.isEmpty) {
+            emit(state.copyWith(
+              status: Status.success,
+              currentPage: nextPage,
+              isEndOfPage: true,
+            ));
+
+            return;
+          }
+          final List<Widget> viewModules = [...state.viewModules];
+          ViewModuleFactory viewModuleFactory = ViewModuleFactory();
+          viewModules.addAll(List.generate(
+            data.length,
+            (index) => viewModuleFactory.textToWidget(data[index]),
+          ));
+
+          emit(state.copyWith(
+            status: Status.success,
+            viewModules: viewModules,
+            currentPage: nextPage,
+          ));
+        },
+        failure: (error) {
+          emit(state.copyWith(status: Status.error, error: error));
+        },
+      );
+    } catch (error) {
+      CustomLogger.logger.e(error);
+      emit(
+        state.copyWith(
+          status: Status.error,
+          error: CommonException.setError(error),
+        ),
+      );
+    }
+  }
+
+  Future<Result<List<ViewModule>>> _fetch({
+    required int tabId,
+    int page = 1,
+  }) async {
     return await _displayUsecase.excute(
-      usecase: GetViewModulesUsecase(tabId: tabId),
+      usecase: GetViewModulesUsecase(tabId: tabId, page: page),
     );
   }
 }
