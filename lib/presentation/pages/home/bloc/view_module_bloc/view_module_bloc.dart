@@ -1,6 +1,8 @@
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:stream_transform/stream_transform.dart';
 
 import '../../../../../core/utils/constant.dart';
 import '../../../../../core/utils/error/error_response.dart';
@@ -18,12 +20,21 @@ part 'view_module_state.dart';
 
 part 'view_module_bloc.freezed.dart';
 
+EventTransformer<E> _throttleDroppable<E>(Duration duration) {
+  return (events, mapper) {
+    return droppable<E>().call(events.throttle(duration), mapper);
+  };
+}
+
 class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
   final DisplayUsecase _displayUsecase;
 
   ViewModuleBloc(this._displayUsecase) : super(ViewModuleState()) {
     on<ViewModuleInitialized>(_onViewModuleInitialized);
-    on<ViewModuleFetched>(_onViewModuleFetched);
+    on<ViewModuleFetched>(
+      _onViewModuleFetched,
+      transformer: _throttleDroppable(Duration(milliseconds: 400)),
+    );
   }
 
   Future<void> _onViewModuleInitialized(
