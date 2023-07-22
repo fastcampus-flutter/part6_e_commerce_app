@@ -44,23 +44,21 @@ class HomeView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             case Status.loading:
               return DefaultTabController(
+                key: ValueKey<MallType>(state.mallType),
                 length: state.menus.length,
-                child: Column(
-                  children: [
-                    GlobalNavBar(state.menus),
-                    GlobalNavBarView(state.mallType, state.menus),
-                  ],
-                ),
+                child: Column(children: [
+                  GlobalNavBar(state.menus),
+                  GlobalNavBarView(state.mallType, state.menus),
+                ]),
               );
             case Status.success:
               return DefaultTabController(
+                key: ValueKey<MallType>(state.mallType),
                 length: state.menus.length,
-                child: Column(
-                  children: [
-                    GlobalNavBar(state.menus),
-                    GlobalNavBarView(state.mallType, state.menus),
-                  ],
-                ),
+                child: Column(children: [
+                  GlobalNavBar(state.menus),
+                  GlobalNavBarView(state.mallType, state.menus),
+                ]),
               );
             case Status.error:
               return const Center(child: Text('error'));
