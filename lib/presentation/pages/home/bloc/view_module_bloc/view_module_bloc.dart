@@ -56,7 +56,6 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
       }
 
       emit(state.copyWith(status: Status.loading));
-      await Future.delayed(Duration(seconds: 1));
 
       final response = await _fetch(tabId: tabId);
       response.when(
