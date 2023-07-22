@@ -8,6 +8,15 @@ import 'display_mock_data.dart';
 class DisplayMockApi implements DisplayApi {
   @override
   Future<ResponseWrapper<List<MenuDto>>> getMenusByMallType(String mallType) {
+    //error_test
+    // return Future(
+    //   () => ResponseWrapper(
+    //     status: 'FAIL',
+    //     code: 'GNB-0000',
+    //     message: '일시적인 오류가 발생했습니다.\n 잠시 후에 다시 시도해주세요.',
+    //   ),
+    // );
+
     return Future(
       () => ResponseWrapper(
         status: 'SUCCESS',
