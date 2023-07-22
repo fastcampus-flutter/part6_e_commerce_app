@@ -19,7 +19,7 @@ mixin _$ViewModuleState {
   Status get status => throw _privateConstructorUsedError;
   ErrorResponse get error => throw _privateConstructorUsedError;
   int get tabId => throw _privateConstructorUsedError;
-  List<ViewModule> get viewModules => throw _privateConstructorUsedError;
+  List<Widget> get viewModules => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $ViewModuleStateCopyWith<ViewModuleState> get copyWith =>
@@ -36,7 +36,7 @@ abstract class $ViewModuleStateCopyWith<$Res> {
       {Status status,
       ErrorResponse error,
       int tabId,
-      List<ViewModule> viewModules});
+      List<Widget> viewModules});
 }
 
 /// @nodoc
@@ -73,7 +73,7 @@ class _$ViewModuleStateCopyWithImpl<$Res, $Val extends ViewModuleState>
       viewModules: null == viewModules
           ? _value.viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as List<Widget>,
     ) as $Val);
   }
 }
@@ -90,7 +90,7 @@ abstract class _$$_ViewModuleStateCopyWith<$Res>
       {Status status,
       ErrorResponse error,
       int tabId,
-      List<ViewModule> viewModules});
+      List<Widget> viewModules});
 }
 
 /// @nodoc
@@ -125,7 +125,7 @@ class __$$_ViewModuleStateCopyWithImpl<$Res>
       viewModules: null == viewModules
           ? _value._viewModules
           : viewModules // ignore: cast_nullable_to_non_nullable
-              as List<ViewModule>,
+              as List<Widget>,
     ));
   }
 }
@@ -137,7 +137,7 @@ class _$_ViewModuleState implements _ViewModuleState {
       {this.status = Status.initial,
       this.error = const ErrorResponse(),
       this.tabId = 0,
-      final List<ViewModule> viewModules = const <ViewModule>[]})
+      final List<Widget> viewModules = const <Widget>[]})
       : _viewModules = viewModules;
 
   @override
@@ -149,10 +149,10 @@ class _$_ViewModuleState implements _ViewModuleState {
   @override
   @JsonKey()
   final int tabId;
-  final List<ViewModule> _viewModules;
+  final List<Widget> _viewModules;
   @override
   @JsonKey()
-  List<ViewModule> get viewModules {
+  List<Widget> get viewModules {
     if (_viewModules is EqualUnmodifiableListView) return _viewModules;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_viewModules);
@@ -191,7 +191,7 @@ abstract class _ViewModuleState implements ViewModuleState {
       {final Status status,
       final ErrorResponse error,
       final int tabId,
-      final List<ViewModule> viewModules}) = _$_ViewModuleState;
+      final List<Widget> viewModules}) = _$_ViewModuleState;
 
   @override
   Status get status;
@@ -200,7 +200,7 @@ abstract class _ViewModuleState implements ViewModuleState {
   @override
   int get tabId;
   @override
-  List<ViewModule> get viewModules;
+  List<Widget> get viewModules;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModuleStateCopyWith<_$_ViewModuleState> get copyWith =>
