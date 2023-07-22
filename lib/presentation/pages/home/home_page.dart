@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/utils/constant.dart';
+import '../../../core/utils/dialog/common_dialog.dart';
+import '../../../core/utils/extensions.dart';
 import '../../../dependency_injection.dart';
 import '../../../domain/usecase/display/display.usecase.dart';
 import '../../main/cubit/mall_type_cubit.dart';
@@ -33,7 +35,7 @@ class HomeView extends StatelessWidget {
       listener: (_, state) =>
           context.read<MenuBloc>().add(MenuInitialized(mallType: state)),
       listenWhen: (prev, cur) => prev.index != cur.index,
-      child: BlocBuilder<MenuBloc, MenuState>(
+      child: BlocConsumer<MenuBloc, MenuState>(
         builder: (_, state) {
           switch (state.status) {
             case Status.initial:
@@ -42,9 +44,22 @@ class HomeView extends StatelessWidget {
             case Status.success:
               return Text('${state.menus}');
             case Status.error:
-              return Text('error');
+              return const Center(child: Text('error'));
           }
         },
+        listener: (context, state) async {
+          if (state.status.isError) {
+            final bool result = (await CommonDialog.errorDialog(
+                  context,
+                  state.error,
+                )) ??
+                false;
+            if (result) {
+              context.read<MenuBloc>().add(MenuInitialized());
+            }
+          }
+        },
+        listenWhen: (prev, curr) => prev.status != curr.status,
       ),
     );
   }
