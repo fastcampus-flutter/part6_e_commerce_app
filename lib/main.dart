@@ -8,7 +8,6 @@ import 'presentation/routes/routes.dart';
 
 void main() {
   configureDependencies();
-
   runApp(const MainApp());
 }
 
