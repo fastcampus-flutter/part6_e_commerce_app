@@ -38,12 +38,15 @@ class DisplayMockApi implements DisplayApi {
     int page,
   ) {
     if (page == 4) {
-      return Future(() => ResponseWrapper(
-            status: 'SUCCESS',
-            code: '0000',
-            message: '',
-            data: [],
-          ));
+      return Future.delayed(
+        Duration(seconds: 2),
+        () => ResponseWrapper(
+          status: 'SUCCESS',
+          code: '0000',
+          message: '',
+          data: [],
+        ),
+      );
     }
     late String source;
     final endOfTabId = tabId % 10;
@@ -60,7 +63,8 @@ class DisplayMockApi implements DisplayApi {
         source = DisplayMockData.viewModulesByTabIdCaseFive;
     }
 
-    return Future(
+    return Future.delayed(
+      Duration(seconds: 2),
       () => ResponseWrapper(
         status: 'SUCCESS',
         code: '0000',
