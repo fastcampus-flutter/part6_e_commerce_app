@@ -44,7 +44,6 @@ class HomeView extends StatelessWidget {
               return const Center(child: CircularProgressIndicator());
             case Status.loading:
               return DefaultTabController(
-                // key: ValueKey<String>('${state.mallType}'),
                 length: state.menus.length,
                 child: Column(
                   children: [
