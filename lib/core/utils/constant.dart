@@ -1,0 +1,1 @@
+enum MallType { market, beauty }

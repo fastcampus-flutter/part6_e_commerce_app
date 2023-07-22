@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/custom/custom_app_bar.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
+import '../../../../core/utils/constant.dart';
 import '../../cubit/bottom_nav_cubit.dart';
 import '../../cubit/mall_type_cubit.dart';
 
