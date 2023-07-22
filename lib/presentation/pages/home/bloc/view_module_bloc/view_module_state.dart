@@ -6,6 +6,8 @@ class ViewModuleState with _$ViewModuleState {
     @Default(Status.initial) Status status,
     @Default(ErrorResponse()) ErrorResponse error,
     @Default(0) int tabId,
+    @Default(1) int currentPage,
+    @Default(false) bool isEndOfPage,
     @Default(<Widget>[]) List<Widget> viewModules,
   }) = _ViewModuleState;
 }
