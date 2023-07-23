@@ -10,7 +10,7 @@ class LargeProductCard extends ProductCardWidget {
     required super.productInfo,
   }) : super(
           imageAspect: 150 / 195,
-          needShowReviewCount: false,
+          needShowReviewCount: true,
           titleStyle: Theme.of(context).textTheme.titleSmall,
           priceStyle: Theme.of(context).textTheme.titleSmall,
           originalPriceStyle: Theme.of(context).textTheme.labelMedium,
