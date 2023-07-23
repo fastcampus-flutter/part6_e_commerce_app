@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 import 'constant.dart';
 
 extension StatusX on Status {
@@ -15,5 +17,17 @@ extension StringEx on String {
     RegExp exp = RegExp(r'(?<=[a-z])[A-Z]');
 
     return replaceAllMapped(exp, (Match m) => ('_${m.group(0)}')).toLowerCase();
+  }
+}
+
+extension IntEx on int {
+  String toWon() {
+    final priceFormat = NumberFormat('###,###,###,###원');
+
+    return priceFormat.format(this);
+  }
+
+  String toReview() {
+    return this > 9999 ? '9999+' : toString();
   }
 }
