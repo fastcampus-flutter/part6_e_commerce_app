@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../domain/model/display/view_module/view_module.model.dart';
+import '../carousel.view_module.dart';
 import '../view_module_A.dart';
 import '../view_module_B.dart';
 import '../view_module_C.dart';
@@ -16,6 +17,7 @@ enum Modules {
   viewModuleC,
   viewModuleD,
   viewModuleE,
+  carouselViewModule,
 }
 
 class ViewModuleFactory {
@@ -45,6 +47,10 @@ extension ModulesEx on Modules {
         return const ViewModuleD();
       case Modules.viewModuleE:
         return const ViewModuleE();
+      case Modules.carouselViewModule:
+        return CarouselViewModule(
+          info: info,
+        );
     }
   }
 }
