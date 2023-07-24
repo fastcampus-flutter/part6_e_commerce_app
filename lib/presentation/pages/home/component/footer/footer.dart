@@ -24,20 +24,23 @@ class Footer extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
+                _GreyInfo(
                   '회사 소개',
+                  isBold: true,
                 ),
                 const SizedBox(
                   width: 20,
                 ),
-                Text(
+                _GreyInfo(
                   '이용 약관',
+                  isBold: true,
                 ),
                 const SizedBox(
                   width: 20,
                 ),
-                Text(
+                _GreyInfo(
                   '개인정보처리방침',
+                  isBold: true,
                 ),
               ],
             ),
@@ -49,7 +52,7 @@ class Footer extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    Text(
+                    _GreyInfo(
                       '주식회사 패캠마켓',
                     ),
                     Container(
@@ -58,7 +61,7 @@ class Footer extends StatelessWidget {
                         color: colorScheme.contentTertiary,
                       ),
                     ),
-                    Text(
+                    _GreyInfo(
                       '대표자 : 김플러터',
                     ),
                   ],
@@ -66,7 +69,7 @@ class Footer extends StatelessWidget {
                 SizedBox(
                   height: 4,
                 ),
-                Text(
+                _GreyInfo(
                   '개인정보보호책임자 : 박타트',
                 ),
                 SizedBox(
@@ -74,25 +77,25 @@ class Footer extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text(
+                    _GreyInfo(
                       '사업자등록번호 : 111-22-3333',
                     ),
                     SizedBox(
                       width: 4,
                     ),
-                    Text('사업자 정보 확인'),
+                    _HighlightInfo('사업자 정보 확인'),
                   ],
                 ),
                 SizedBox(
                   height: 4,
                 ),
-                Text(
+                _GreyInfo(
                   '통신판매업 : 제 2023-서울강남-12345 호',
                 ),
                 SizedBox(
                   height: 4,
                 ),
-                Text(
+                _GreyInfo(
                   '주소 : 서울특별시 강남구 테헤란로 123456',
                 ),
                 SizedBox(
@@ -100,33 +103,52 @@ class Footer extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('입점문의 : '),
-                    Text('입점문의하기'),
+                    _GreyInfo('입점문의 : '),
+                    _HighlightInfo('입점문의하기'),
                   ],
                 ),
                 SizedBox(
                   height: 4,
                 ),
                 Row(children: [
-                  Text('제휴문의 : '),
-                  Text('facammarket@facammarket.com'),
+                  _GreyInfo('제휴문의 : '),
+                  _HighlightInfo('facammarket@facammarket.com'),
                 ]),
                 SizedBox(
                   height: 4,
+                ),
+                Wrap(
+                  runSpacing: 4,
+                  children: [
+                    _GreyInfo('팩스 : 111-222-3333'),
+                    Container(
+                      height: 10,
+                      child: VerticalDivider(
+                        color: colorScheme.contentTertiary,
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _GreyInfo('이메일 : '),
+                        _HighlightInfo('fastcampus@fast.com'),
+                      ],
+                    ),
+                  ],
                 ),
                 SizedBox(
                   height: 4,
                 ),
                 Row(children: [
-                  Text('고객 센터 : '),
-                  Text('1234-5678'),
+                  _GreyInfo('고객 센터 : '),
+                  _HighlightInfo('1234-5678'),
                 ]),
                 SizedBox(
                   height: 4,
                 ),
                 Row(children: [
-                  Text('대량주문 문의 : '),
-                  Text('대량주문 문의하기'),
+                  _GreyInfo('대량주문 문의 : '),
+                  _HighlightInfo('대량주문 문의하기'),
                 ]),
               ],
             ),
@@ -168,6 +190,56 @@ class Footer extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _GreyInfo extends StatelessWidget {
+  final String text;
+  final bool isBold;
+
+  const _GreyInfo(
+    this.text, {
+    Key? key,
+    this.isBold = false,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var textStyle = Theme.of(context).textTheme.labelMedium?.copyWith(
+          color: Theme.of(context).colorScheme.contentTertiary,
+        );
+
+    textStyle = isBold ? textStyle.bold : textStyle.regular;
+
+    return Text(
+      text,
+      style: textStyle,
+    );
+  }
+}
+
+class _HighlightInfo extends StatelessWidget {
+  final String text;
+
+  const _HighlightInfo(
+    this.text, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    var textStyle = Theme.of(context)
+        .textTheme
+        .labelMedium
+        ?.copyWith(
+          color: Theme.of(context).colorScheme.primary,
+        )
+        .regular;
+
+    return Text(
+      text,
+      style: textStyle,
     );
   }
 }
