@@ -21,6 +21,7 @@ extension ViewModuleDtoEx on ViewModuleDto {
       imageUrl: imageUrl ?? '',
       time: time ?? -1,
       products: products?.map((dto) => dto.toModel()).toList() ?? [],
+      tabs: tabs ?? [],
     );
   }
 }

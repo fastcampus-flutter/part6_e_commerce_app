@@ -26,6 +26,7 @@ mixin _$ViewModule {
   String get imageUrl => throw _privateConstructorUsedError;
   int get time => throw _privateConstructorUsedError;
   List<ProductInfo> get products => throw _privateConstructorUsedError;
+  List<String> get tabs => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -45,7 +46,8 @@ abstract class $ViewModuleCopyWith<$Res> {
       String subtitle,
       String imageUrl,
       int time,
-      List<ProductInfo> products});
+      List<ProductInfo> products,
+      List<String> tabs});
 }
 
 /// @nodoc
@@ -67,6 +69,7 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
     Object? imageUrl = null,
     Object? time = null,
     Object? products = null,
+    Object? tabs = null,
   }) {
     return _then(_value.copyWith(
       type: null == type
@@ -93,6 +96,10 @@ class _$ViewModuleCopyWithImpl<$Res, $Val extends ViewModule>
           ? _value.products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ProductInfo>,
+      tabs: null == tabs
+          ? _value.tabs
+          : tabs // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ) as $Val);
   }
 }
@@ -111,7 +118,8 @@ abstract class _$$_ViewModuleCopyWith<$Res>
       String subtitle,
       String imageUrl,
       int time,
-      List<ProductInfo> products});
+      List<ProductInfo> products,
+      List<String> tabs});
 }
 
 /// @nodoc
@@ -131,6 +139,7 @@ class __$$_ViewModuleCopyWithImpl<$Res>
     Object? imageUrl = null,
     Object? time = null,
     Object? products = null,
+    Object? tabs = null,
   }) {
     return _then(_$_ViewModule(
       type: null == type
@@ -157,6 +166,10 @@ class __$$_ViewModuleCopyWithImpl<$Res>
           ? _value._products
           : products // ignore: cast_nullable_to_non_nullable
               as List<ProductInfo>,
+      tabs: null == tabs
+          ? _value._tabs
+          : tabs // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -170,8 +183,10 @@ class _$_ViewModule implements _ViewModule {
       required this.subtitle,
       required this.imageUrl,
       required this.time,
-      required final List<ProductInfo> products})
-      : _products = products;
+      required final List<ProductInfo> products,
+      required final List<String> tabs})
+      : _products = products,
+        _tabs = tabs;
 
   factory _$_ViewModule.fromJson(Map<String, dynamic> json) =>
       _$$_ViewModuleFromJson(json);
@@ -194,9 +209,17 @@ class _$_ViewModule implements _ViewModule {
     return EqualUnmodifiableListView(_products);
   }
 
+  final List<String> _tabs;
+  @override
+  List<String> get tabs {
+    if (_tabs is EqualUnmodifiableListView) return _tabs;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_tabs);
+  }
+
   @override
   String toString() {
-    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, imageUrl: $imageUrl, time: $time, products: $products)';
+    return 'ViewModule(type: $type, title: $title, subtitle: $subtitle, imageUrl: $imageUrl, time: $time, products: $products, tabs: $tabs)';
   }
 
   @override
@@ -211,13 +234,21 @@ class _$_ViewModule implements _ViewModule {
             (identical(other.imageUrl, imageUrl) ||
                 other.imageUrl == imageUrl) &&
             (identical(other.time, time) || other.time == time) &&
-            const DeepCollectionEquality().equals(other._products, _products));
+            const DeepCollectionEquality().equals(other._products, _products) &&
+            const DeepCollectionEquality().equals(other._tabs, _tabs));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, type, title, subtitle, imageUrl,
-      time, const DeepCollectionEquality().hash(_products));
+  int get hashCode => Object.hash(
+      runtimeType,
+      type,
+      title,
+      subtitle,
+      imageUrl,
+      time,
+      const DeepCollectionEquality().hash(_products),
+      const DeepCollectionEquality().hash(_tabs));
 
   @JsonKey(ignore: true)
   @override
@@ -240,7 +271,8 @@ abstract class _ViewModule implements ViewModule {
       required final String subtitle,
       required final String imageUrl,
       required final int time,
-      required final List<ProductInfo> products}) = _$_ViewModule;
+      required final List<ProductInfo> products,
+      required final List<String> tabs}) = _$_ViewModule;
 
   factory _ViewModule.fromJson(Map<String, dynamic> json) =
       _$_ViewModule.fromJson;
@@ -257,6 +289,8 @@ abstract class _ViewModule implements ViewModule {
   int get time;
   @override
   List<ProductInfo> get products;
+  @override
+  List<String> get tabs;
   @override
   @JsonKey(ignore: true)
   _$$_ViewModuleCopyWith<_$_ViewModule> get copyWith =>
