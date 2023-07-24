@@ -4,6 +4,7 @@ import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../domain/model/display/view_module/view_module.model.dart';
 import '../banner.view_module.dart';
 import '../carousel.view_module.dart';
+import '../category_product.view_module.dart';
 import '../scroll.view_module.dart';
 import '../special_price.view_module.dart';
 import '../view_module_A.dart';
@@ -24,6 +25,7 @@ enum Modules {
   bannerViewModule,
   scrollViewModule,
   specialPriceViewModule,
+  categoryProductViewModule,
 }
 
 class ViewModuleFactory {
@@ -63,6 +65,8 @@ extension ModulesEx on Modules {
         return ScrollViewModule(info: info);
       case Modules.specialPriceViewModule:
         return SpecialPriceViewModule(info: info);
+      case Modules.categoryProductViewModule:
+        return CategoryProductViewModule(info: info);
     }
   }
 }
