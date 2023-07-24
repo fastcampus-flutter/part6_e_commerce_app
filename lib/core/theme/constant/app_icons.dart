@@ -36,4 +36,7 @@ class AppIcons {
   //image
   static const String kakaoLogin = 'assets/image/kakao_login_btn.png';
   static const String badge = 'assets/image/badge.png';
+
+  // lottie
+  static const String lottie_clock = 'assets/lottie/clock.json';
 }
