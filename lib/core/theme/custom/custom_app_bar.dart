@@ -14,7 +14,7 @@ class CustomAppBarTheme {
 
   static const int animationDuration = 400;
 
-  static const double tabBarRadius = 16;
+  static const double tabBarRadius = 30;
 
   static final CustomAppBarTheme market = CustomAppBarTheme(
     systemUiOverlayStyle: SystemUiOverlayStyle.light,
