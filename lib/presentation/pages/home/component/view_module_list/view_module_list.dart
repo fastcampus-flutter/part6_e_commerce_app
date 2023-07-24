@@ -49,7 +49,6 @@ class _ViewModuleListState extends State<ViewModuleList> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       child: BlocBuilder<ViewModuleBloc, ViewModuleState>(builder: (_, state) {
-        return Footer();
         return (state.status.isInitial || state.viewModules.isEmpty)
             ? LoadingWidget()
             : ListView(controller: scrollController, children: [
