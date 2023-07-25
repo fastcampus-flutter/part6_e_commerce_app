@@ -6,24 +6,26 @@ class SvgIconButton extends StatelessWidget {
     required this.icon,
     required this.color,
     this.padding = 4.0,
+    required this.onPressed,
     super.key,
   });
 
   final double padding;
   final String icon;
   final Color color;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(padding),
-      child: SvgPicture.asset(
-        icon,
-        colorFilter: ColorFilter.mode(
-          color,
-          BlendMode.srcIn,
+    return GestureDetector(
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: SvgPicture.asset(
+          icon,
+          colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
         ),
       ),
+      onTap: onPressed,
     );
   }
 }

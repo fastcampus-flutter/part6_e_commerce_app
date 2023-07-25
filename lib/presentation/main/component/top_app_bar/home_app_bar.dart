@@ -23,6 +23,7 @@ class HomeAppBar extends StatelessWidget {
               icon: AppIcons.mainLogo,
               color: state.theme.logoColor,
               padding: 8,
+              onPressed: null,
             ),
             title: AnimatedContainer(
               decoration: BoxDecoration(
@@ -69,13 +70,17 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
             actions: [
+              //TODO 버튼 액션 구현
               SvgIconButton(
                 icon: AppIcons.location,
                 color: state.theme.iconColor,
+                onPressed: null,
               ),
+              //TODO 버튼 액션 구현
               SvgIconButton(
                 icon: AppIcons.cart,
                 color: state.theme.iconColor,
+                onPressed: null,
               ),
             ],
             backgroundColor: Colors.transparent,
