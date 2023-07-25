@@ -5,7 +5,6 @@ import '../../../../../domain/model/display/display.model.dart';
 import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'factory/view_module_widget.dart';
 import 'widget/product_card.component.dart';
-import 'widget/product_card_widget.dart';
 import 'widget/view_module_padding.dart';
 import 'widget/view_module_subtitle.dart';
 import 'widget/view_module_title.dart';

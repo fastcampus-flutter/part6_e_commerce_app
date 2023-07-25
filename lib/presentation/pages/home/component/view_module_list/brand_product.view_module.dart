@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:injectable/injectable.dart';
 
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/theme/custom/custom_font_weight.dart';
