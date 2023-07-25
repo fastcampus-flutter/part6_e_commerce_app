@@ -13,6 +13,7 @@ class CartPriceInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<CartBloc>().state;
+    final cartBloc = context.read<CartBloc>();
 
     return Padding(
       padding: const EdgeInsets.symmetric(
@@ -55,14 +56,16 @@ class CartPriceInfo extends StatelessWidget {
                   children: [
                     SvgIconButton(
                       icon: AppIcons.subtract,
-                      color: Theme.of(context).colorScheme.contentPrimary,
-                      onPressed: null,
+                      color: (state.quantity != 1)
+                          ? Theme.of(context).colorScheme.contentPrimary
+                          : Theme.of(context).colorScheme.contentFourth,
+                      onPressed: () => cartBloc.add(CartQuantityDecreased()),
                     ),
                     Text('${state.quantity}'),
                     SvgIconButton(
                       icon: AppIcons.add,
                       color: Theme.of(context).colorScheme.contentPrimary,
-                      onPressed: null,
+                      onPressed: () => cartBloc.add(CartQuantityIncreased()),
                     ),
                   ],
                 ),
