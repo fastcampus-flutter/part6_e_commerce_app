@@ -68,9 +68,7 @@ class _CategoryProductViewModuleState extends State<CategoryProductViewModule>
         TabBar(
           tabs: List.generate(
             info.tabs.length,
-            (index) => Tab(
-              text: info.tabs[index] ?? '',
-            ),
+            (index) => Tab(text: info.tabs[index]),
           ),
           controller: _tabController,
           isScrollable: true,

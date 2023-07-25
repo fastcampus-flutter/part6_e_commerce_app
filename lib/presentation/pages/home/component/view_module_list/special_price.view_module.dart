@@ -113,7 +113,7 @@ class _SpecialPriceProduct extends StatelessWidget {
                 fit: BoxFit.cover,
               ),
             ),
-            AddCartButton(),
+            AddCartButton(productInfo),
           ],
         ),
         const SizedBox(
