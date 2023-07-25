@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../core/utils/error/error_response.dart';
 import '../../../../core/utils/exception/common_exception.dart';
@@ -12,6 +13,7 @@ part 'cart_state.dart';
 
 part 'cart_bloc.freezed.dart';
 
+@injectable
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartBloc() : super(CartState()) {
     on<CartInitialized>(_onCartInitialized);
