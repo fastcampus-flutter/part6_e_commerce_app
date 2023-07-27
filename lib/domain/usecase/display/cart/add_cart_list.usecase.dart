@@ -15,7 +15,7 @@ class AddCartListUsecase extends RemoteUsecase<DisplayRepository> {
     final result = await repository.addCartList(cart: cart);
 
     return (result.status.isSuccess)
-        ? Result.success(true)
+        ? Result.success(result.data)
         : Result.failure(
             ErrorResponse(
               status: result.status,
