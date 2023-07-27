@@ -1,9 +1,11 @@
 import 'package:injectable/injectable.dart';
 
 import '../../core/utils/constant.dart';
+import '../../domain/model/display/cart/cart.model.dart';
 import '../../domain/model/display/menu/menu.model.dart';
 import '../../domain/model/display/view_module/view_module.model.dart';
 import '../../domain/repository/display.repository.dart';
+import '../data_source/local_storage/display.dao.dart';
 import '../data_source/remote/display/display.api.dart';
 import '../dto/common/response_wrapper/response_wrapper.dart';
 import '../mapper/common.mapper.dart';
@@ -12,8 +14,9 @@ import '../mapper/display.mapper.dart';
 @Singleton(as: DisplayRepository)
 class DisplayRepositoryImpl implements DisplayRepository {
   final DisplayApi _displayApi;
+  final DisplayDao _displayDao;
 
-  DisplayRepositoryImpl(this._displayApi);
+  DisplayRepositoryImpl(this._displayApi, this._displayDao);
 
   @override
   Future<ResponseWrapper<List<Menu>>> getMenusByMallType({
@@ -37,5 +40,19 @@ class DisplayRepositoryImpl implements DisplayRepository {
       response.data?.map((viewModuleDto) => viewModuleDto.toModel()).toList() ??
           [],
     );
+  }
+
+  @override
+  Future<ResponseWrapper<List<Cart>>> getCartList() async {
+    final response = await _displayDao.getCartList();
+
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
+  }
+
+  @override
+  Future<ResponseWrapper<bool>> addCartList({required Cart cart}) async {
+    return await _displayDao.insertCart(cart.toEntity());
   }
 }
