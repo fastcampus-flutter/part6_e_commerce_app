@@ -28,28 +28,32 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     on<CartListAdded>(_onCartListAdded);
   }
 
-  Future<void> _onCartListInitialized(_, Emitter<CartListState> emit) async {
+  Future<void> _onCartListInitialized(
+    CartListInitialized event,
+    Emitter<CartListState> emit,
+  ) async {
     emit(state.copyWith(status: Status.loading));
     try {
-      final Result<List<Cart>> response =
-          await _displayUsecase.excute(usecase: GetCartListUsecase());
-      response.when(
-        success: (cartList) {
-          final selectedProducts =
-              cartList.map((e) => e.product.productId).toList();
+    final response =
+        await _displayUsecase.excute(usecase: GetCartListUsecase());
+    response.when(
+      success: (data) {
+        final List<Cart> cartList = [...data];
+        final List<String> selectedProducts =
+            cartList.map((e) => e.product.productId).toList();
 
-          final totalPrice = _calTotalPrice(selectedProducts, cartList);
-          emit(state.copyWith(
-            status: Status.success,
-            cartList: cartList,
-            totalPrice: totalPrice,
-            selectedProduct: selectedProducts,
-          ));
-        },
-        failure: (error) {
-          emit(state.copyWith(status: Status.error, error: error));
-        },
-      );
+        final totalPrice = _calTotalPrice(selectedProducts, cartList);
+        emit(state.copyWith(
+          status: Status.success,
+          cartList: cartList,
+          totalPrice: totalPrice,
+          selectedProduct: selectedProducts,
+        ));
+      },
+      failure: (error) {
+        emit(state.copyWith(status: Status.error, error: error));
+      },
+    );
     } catch (error) {
       CustomLogger.logger.e(error);
       emit(state.copyWith(
