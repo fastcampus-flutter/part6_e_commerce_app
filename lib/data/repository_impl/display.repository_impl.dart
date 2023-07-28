@@ -52,7 +52,11 @@ class DisplayRepositoryImpl implements DisplayRepository {
   }
 
   @override
-  Future<ResponseWrapper<bool>> addCartList({required Cart cart}) async {
-    return await _displayDao.insertCart(cart.toEntity());
+  Future<ResponseWrapper<List<Cart>>> addCartList({required Cart cart}) async {
+    final response = await _displayDao.insertCart(cart.toEntity());
+
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
   }
 }

@@ -19,5 +19,5 @@ abstract class DisplayRepository extends Repository {
   Future<ResponseWrapper<List<Cart>>> getCartList();
 
   // 장바구니 담기
-  Future<ResponseWrapper<bool>> addCartList({required Cart cart});
+  Future<ResponseWrapper<List<Cart>>> addCartList({required Cart cart});
 }
