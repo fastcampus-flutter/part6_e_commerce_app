@@ -6,5 +6,7 @@ class CartListState with _$CartListState {
     @Default(Status.initial) Status status,
     @Default(ErrorResponse()) ErrorResponse error,
     @Default(<Cart>[]) List<Cart> cartList,
+    @Default([]) List<String> selectedProduct,
+    @Default(0) int totalPrice,
   }) = _CartListState;
 }

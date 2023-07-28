@@ -19,6 +19,8 @@ mixin _$CartListState {
   Status get status => throw _privateConstructorUsedError;
   ErrorResponse get error => throw _privateConstructorUsedError;
   List<Cart> get cartList => throw _privateConstructorUsedError;
+  List<String> get selectedProduct => throw _privateConstructorUsedError;
+  int get totalPrice => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $CartListStateCopyWith<CartListState> get copyWith =>
@@ -31,7 +33,12 @@ abstract class $CartListStateCopyWith<$Res> {
           CartListState value, $Res Function(CartListState) then) =
       _$CartListStateCopyWithImpl<$Res, CartListState>;
   @useResult
-  $Res call({Status status, ErrorResponse error, List<Cart> cartList});
+  $Res call(
+      {Status status,
+      ErrorResponse error,
+      List<Cart> cartList,
+      List<String> selectedProduct,
+      int totalPrice});
 }
 
 /// @nodoc
@@ -50,6 +57,8 @@ class _$CartListStateCopyWithImpl<$Res, $Val extends CartListState>
     Object? status = null,
     Object? error = null,
     Object? cartList = null,
+    Object? selectedProduct = null,
+    Object? totalPrice = null,
   }) {
     return _then(_value.copyWith(
       status: null == status
@@ -64,6 +73,14 @@ class _$CartListStateCopyWithImpl<$Res, $Val extends CartListState>
           ? _value.cartList
           : cartList // ignore: cast_nullable_to_non_nullable
               as List<Cart>,
+      selectedProduct: null == selectedProduct
+          ? _value.selectedProduct
+          : selectedProduct // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -76,7 +93,12 @@ abstract class _$$_CartListStateCopyWith<$Res>
       __$$_CartListStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Status status, ErrorResponse error, List<Cart> cartList});
+  $Res call(
+      {Status status,
+      ErrorResponse error,
+      List<Cart> cartList,
+      List<String> selectedProduct,
+      int totalPrice});
 }
 
 /// @nodoc
@@ -93,6 +115,8 @@ class __$$_CartListStateCopyWithImpl<$Res>
     Object? status = null,
     Object? error = null,
     Object? cartList = null,
+    Object? selectedProduct = null,
+    Object? totalPrice = null,
   }) {
     return _then(_$_CartListState(
       status: null == status
@@ -107,6 +131,14 @@ class __$$_CartListStateCopyWithImpl<$Res>
           ? _value._cartList
           : cartList // ignore: cast_nullable_to_non_nullable
               as List<Cart>,
+      selectedProduct: null == selectedProduct
+          ? _value._selectedProduct
+          : selectedProduct // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      totalPrice: null == totalPrice
+          ? _value.totalPrice
+          : totalPrice // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -117,8 +149,11 @@ class _$_CartListState implements _CartListState {
   _$_CartListState(
       {this.status = Status.initial,
       this.error = const ErrorResponse(),
-      final List<Cart> cartList = const <Cart>[]})
-      : _cartList = cartList;
+      final List<Cart> cartList = const <Cart>[],
+      final List<String> selectedProduct = const [],
+      this.totalPrice = 0})
+      : _cartList = cartList,
+        _selectedProduct = selectedProduct;
 
   @override
   @JsonKey()
@@ -135,9 +170,22 @@ class _$_CartListState implements _CartListState {
     return EqualUnmodifiableListView(_cartList);
   }
 
+  final List<String> _selectedProduct;
+  @override
+  @JsonKey()
+  List<String> get selectedProduct {
+    if (_selectedProduct is EqualUnmodifiableListView) return _selectedProduct;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_selectedProduct);
+  }
+
+  @override
+  @JsonKey()
+  final int totalPrice;
+
   @override
   String toString() {
-    return 'CartListState(status: $status, error: $error, cartList: $cartList)';
+    return 'CartListState(status: $status, error: $error, cartList: $cartList, selectedProduct: $selectedProduct, totalPrice: $totalPrice)';
   }
 
   @override
@@ -147,12 +195,21 @@ class _$_CartListState implements _CartListState {
             other is _$_CartListState &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.error, error) || other.error == error) &&
-            const DeepCollectionEquality().equals(other._cartList, _cartList));
+            const DeepCollectionEquality().equals(other._cartList, _cartList) &&
+            const DeepCollectionEquality()
+                .equals(other._selectedProduct, _selectedProduct) &&
+            (identical(other.totalPrice, totalPrice) ||
+                other.totalPrice == totalPrice));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, status, error,
-      const DeepCollectionEquality().hash(_cartList));
+  int get hashCode => Object.hash(
+      runtimeType,
+      status,
+      error,
+      const DeepCollectionEquality().hash(_cartList),
+      const DeepCollectionEquality().hash(_selectedProduct),
+      totalPrice);
 
   @JsonKey(ignore: true)
   @override
@@ -165,7 +222,9 @@ abstract class _CartListState implements CartListState {
   factory _CartListState(
       {final Status status,
       final ErrorResponse error,
-      final List<Cart> cartList}) = _$_CartListState;
+      final List<Cart> cartList,
+      final List<String> selectedProduct,
+      final int totalPrice}) = _$_CartListState;
 
   @override
   Status get status;
@@ -173,6 +232,10 @@ abstract class _CartListState implements CartListState {
   ErrorResponse get error;
   @override
   List<Cart> get cartList;
+  @override
+  List<String> get selectedProduct;
+  @override
+  int get totalPrice;
   @override
   @JsonKey(ignore: true)
   _$$_CartListStateCopyWith<_$_CartListState> get copyWith =>
