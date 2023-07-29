@@ -59,4 +59,34 @@ class DisplayRepositoryImpl implements DisplayRepository {
       response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
     );
   }
+
+  @override
+  Future<ResponseWrapper<List<Cart>>> clearCartList() async {
+    final response = await _displayDao.clearCarts();
+
+    return response.toModel<List<Cart>>([]);
+  }
+
+  @override
+  Future<ResponseWrapper<List<Cart>>> deleteCartByPrdId(
+    List<String> productIds,
+  ) async {
+    final response = await _displayDao.deleteCart(productIds);
+
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
+  }
+
+  @override
+  Future<ResponseWrapper<List<Cart>>> changeCartQuantityByPrdId({
+    required String productId,
+    required int qty,
+  }) async {
+    final response = await _displayDao.changeQtyCart(productId, qty);
+
+    return response.toModel<List<Cart>>(
+      response.data?.map((cartEntity) => cartEntity.toModel()).toList() ?? [],
+    );
+  }
 }

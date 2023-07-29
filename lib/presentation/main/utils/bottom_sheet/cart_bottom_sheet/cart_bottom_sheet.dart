@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../../core/utils/extensions.dart';
 import '../../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
+import '../../snack_bar/common_snack_bar.dart';
 import 'widgets/add_cart_btn.dart';
 import 'widgets/cart_benefit.dart';
 import 'widgets/cart_price_info.dart';
@@ -16,7 +17,9 @@ Future<bool?> cartBottomSheet(BuildContext context) {
       return SafeArea(
         child: BlocListener<CartListBloc, CartListState>(
           listener: (_, state) {
-            //TODO 스낵바
+            if (state.status.isError) {
+              CommonSnackBar.errorSnackBar(context, error: state.error);
+            }
             if (context.canPop()) {
               Navigator.pop(context, !state.status.isError);
             }

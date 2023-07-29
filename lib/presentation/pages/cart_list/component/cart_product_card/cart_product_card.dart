@@ -42,8 +42,8 @@ class CartProductCard extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            //TODO 상품 선택
-            onTap: () {},
+            onTap: () =>
+                context.read<CartListBloc>().add(CartListSelected(cart: cart)),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -115,12 +115,17 @@ class CartProductCard extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          //TODO 선택된 상품 장바구니 수량 증가
                                           SvgIconButton(
                                             icon: AppIcons.subtract,
                                             // iconSize: 16,
-                                            color: colorScheme.contentFourth,
-                                            onPressed: () {},
+                                            color: (cart.quantity == 1)
+                                                ? colorScheme.contentFourth
+                                                : colorScheme.contentPrimary,
+                                            onPressed: () => context
+                                                .read<CartListBloc>()
+                                                .add(CartListQtyDecreased(
+                                                  cart: cart,
+                                                )),
                                           ),
                                           Text(
                                             cart.quantity.toString(),
@@ -131,12 +136,15 @@ class CartProductCard extends StatelessWidget {
                                                 )
                                                 .semiBold,
                                           ),
-                                          //TODO 선택된 상품 장바구니 수량 증가
                                           SvgIconButton(
                                             icon: AppIcons.add,
                                             // iconSize: 16,
                                             color: colorScheme.contentPrimary,
-                                            onPressed: () {},
+                                            onPressed: () => context
+                                                .read<CartListBloc>()
+                                                .add(CartListQtyIncreased(
+                                                  cart: cart,
+                                                )),
                                           ),
                                         ],
                                       ),
@@ -161,8 +169,11 @@ class CartProductCard extends StatelessWidget {
                             BlendMode.srcIn,
                           ),
                         ),
-                        //TODO 선택된 상품 장바구니 삭제
-                        onTap: () {},
+                        onTap: () => context.read<CartListBloc>().add(
+                              CartListDeleted(
+                                productIds: [cart.product.productId],
+                              ),
+                            ),
                       ),
                     ),
                   ],

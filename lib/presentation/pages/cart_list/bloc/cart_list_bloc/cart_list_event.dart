@@ -18,3 +18,35 @@ class CartListAdded extends CartListEvent {
 
   CartListAdded({required this.quantity, required this.productInfo});
 }
+
+class CartListSelectedAll extends CartListEvent {
+  CartListSelectedAll();
+}
+
+class CartListSelected extends CartListEvent {
+  final Cart cart;
+
+  CartListSelected({required this.cart});
+}
+
+class CartListDeleted extends CartListEvent {
+  final List<String> productIds;
+
+  CartListDeleted({required this.productIds});
+}
+
+class CartListCleared extends CartListEvent {
+  CartListCleared();
+}
+
+class CartListQtyDecreased extends CartListEvent {
+  final Cart cart;
+
+  CartListQtyDecreased({required this.cart});
+}
+
+class CartListQtyIncreased extends CartListEvent {
+  final Cart cart;
+
+  CartListQtyIncreased({required this.cart});
+}
