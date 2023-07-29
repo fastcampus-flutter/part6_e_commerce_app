@@ -42,8 +42,8 @@ class CartProductCard extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            //TODO 상품 선택
-            onTap: () {},
+            onTap: () =>
+                context.read<CartListBloc>().add(CartListSelected(cart: cart)),
           ),
           const SizedBox(width: 8),
           Expanded(

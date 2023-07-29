@@ -18,3 +18,13 @@ class CartListAdded extends CartListEvent {
 
   CartListAdded({required this.quantity, required this.productInfo});
 }
+
+class CartListSelectedAll extends CartListEvent {
+  CartListSelectedAll();
+}
+
+class CartListSelected extends CartListEvent {
+  final Cart cart;
+
+  CartListSelected({required this.cart});
+}

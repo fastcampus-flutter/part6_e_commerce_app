@@ -66,22 +66,33 @@ class CartListView extends StatelessWidget {
                   BlocBuilder<CartListBloc, CartListState>(
                     builder: (context, state) {
                       final cartList = state.cartList;
+                      final selectedProducts = state.selectedProduct;
 
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           GestureDetector(
                             child: SvgPicture.asset(
-                              AppIcons.checkMarkCircle,
+                              (selectedProducts.length == cartList.length)
+                                  ? AppIcons.checkMarkCircleFill
+                                  : AppIcons.checkMarkCircle,
                               width: 28,
                               height: 28,
+                              colorFilter: ColorFilter.mode(
+                                (selectedProducts.length == cartList.length &&
+                                        cartList.length != 0)
+                                    ? colorScheme.primary
+                                    : colorScheme.contentFourth,
+                                BlendMode.srcIn,
+                              ),
                             ),
-                            //장바구니 전체 선택
-                            onTap: () {},
+                            onTap: () => context
+                                .read<CartListBloc>()
+                                .add(CartListSelectedAll()),
                           ),
                           const SizedBox(width: 10),
                           Text(
-                            '전체 선택 ( 0 /${cartList.length})',
+                            '전체 선택 ( ${selectedProducts.length} /${cartList.length})',
                             style: textTheme.titleSmall
                                 ?.copyWith(
                                   color: colorScheme.contentPrimary,
