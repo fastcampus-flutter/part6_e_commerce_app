@@ -161,8 +161,11 @@ class CartProductCard extends StatelessWidget {
                             BlendMode.srcIn,
                           ),
                         ),
-                        //TODO 선택된 상품 장바구니 삭제
-                        onTap: () {},
+                        onTap: () => context.read<CartListBloc>().add(
+                              CartListDeleted(
+                                productIds: [cart.product.productId],
+                              ),
+                            ),
                       ),
                     ),
                   ],

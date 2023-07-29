@@ -116,8 +116,8 @@ class CartListView extends StatelessWidget {
                             .semiBold,
                       ),
                     ),
-                    //TODO 전체 삭제
-                    onTap: () {},
+                    onTap: () =>
+                        context.read<CartListBloc>().add(CartListCleared()),
                   ),
                 ],
               ),
