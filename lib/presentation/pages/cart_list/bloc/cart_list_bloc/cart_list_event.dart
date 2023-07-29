@@ -28,3 +28,13 @@ class CartListSelected extends CartListEvent {
 
   CartListSelected({required this.cart});
 }
+
+class CartListDeleted extends CartListEvent {
+  final List<String> productIds;
+
+  CartListDeleted({required this.productIds});
+}
+
+class CartListCleared extends CartListEvent {
+  CartListCleared();
+}

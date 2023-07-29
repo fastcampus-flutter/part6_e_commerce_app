@@ -9,6 +9,8 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/cart/cart.model.dart';
 import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import '../../../../../domain/usecase/display/cart/add_cart_list.usecase.dart';
+import '../../../../../domain/usecase/display/cart/clear_cart_list.usecase.dart';
+import '../../../../../domain/usecase/display/cart/delete_cart.usecase.dart';
 import '../../../../../domain/usecase/display/cart/get_cart_list.usecase.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';
 
@@ -27,6 +29,8 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     on<CartListAdded>(_onCartListAdded);
     on<CartListSelected>(_onCartSelected);
     on<CartListSelectedAll>(_onCartSelectedAll);
+    on<CartListDeleted>(_onCartDeleted);
+    on<CartListCleared>(_onCartListCleared);
   }
 
   Future<void> _onCartListInitialized(
@@ -103,6 +107,76 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     }
   }
 
+  Future<void> _onCartDeleted(
+    CartListDeleted event,
+    Emitter<CartListState> emit,
+  ) async {
+    try {
+      final response = await _displayUsecase.excute(
+        usecase: DeleteCartUsecase(productIds: event.productIds),
+      );
+
+      response.when(
+        success: (data) {
+          final List<Cart> cartList = [...data];
+          final selectedProducts =
+              cartList.map((e) => e.product.productId).toList();
+          final totalPrice = _calTotalPrice(selectedProducts, cartList);
+          emit(state.copyWith(
+            status: Status.success,
+            cartList: cartList,
+            selectedProduct: selectedProducts,
+            totalPrice: totalPrice,
+          ));
+        },
+        failure: (error) {
+          emit(state.copyWith(status: Status.error, error: error));
+        },
+      );
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
+    }
+  }
+
+  Future<void> _onCartListCleared(
+    CartListCleared event,
+    Emitter<CartListState> emit,
+  ) async {
+    emit(state.copyWith(status: Status.loading));
+
+    try {
+      final response =
+          await _displayUsecase.excute(usecase: ClearCartListUsecase());
+      response.when(
+        success: (data) {
+          final List<Cart> cartList = [...data];
+          final selectedProducts =
+              cartList.map((e) => e.product.productId).toList();
+          final totalPrice = _calTotalPrice(selectedProducts, cartList);
+          emit(state.copyWith(
+            status: Status.success,
+            cartList: cartList,
+            selectedProduct: selectedProducts,
+            totalPrice: totalPrice,
+          ));
+        },
+        failure: (error) {
+          emit(state.copyWith(status: Status.error, error: error));
+        },
+      );
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
+    }
+  }
+
   void _onCartSelected(
     CartListSelected event,
     Emitter<CartListState> emit,
@@ -126,7 +200,10 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       ));
     } catch (error) {
       CustomLogger.logger.e('${error.toString()}');
-      CommonException.setError(error);
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
     }
   }
 
@@ -154,7 +231,10 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       ));
     } catch (error) {
       CustomLogger.logger.e('${error.toString()}');
-      CommonException.setError(error);
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
     }
   }
 
