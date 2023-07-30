@@ -8,6 +8,9 @@ import '../../../core/theme/constant/app_icons.dart';
 import '../../../core/theme/custom/custom_font_weight.dart';
 import '../../../core/theme/custom/custom_theme.dart';
 import '../../../core/utils/constant.dart';
+import '../../../core/utils/extensions.dart';
+import '../../../domain/model/display/cart/cart.model.dart';
+import '../../main/component/payment/payment_button.dart';
 import '../../main/component/top_app_bar/widgets/svg_icon_button.dart';
 import 'bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'component/cart_product_card/cart_product_card.dart';
@@ -161,7 +164,31 @@ class CartListView extends StatelessWidget {
           ],
         ),
       ),
-      //TODO 결제 버튼
+      bottomNavigationBar: SafeArea(
+        child: BlocBuilder<CartListBloc, CartListState>(
+          builder: (context, state) {
+            List<Cart> selectedCartList = state.cartList.fold(
+              [],
+              (previousValue, cart) {
+                final List<Cart> currentValue = [...previousValue];
+
+                if (state.selectedProduct.contains(cart.product.productId)) {
+                  currentValue.add(cart);
+                }
+
+                return currentValue;
+              },
+            );
+
+            return state.status.isSuccess
+                ? PaymentButton(
+                    selectedCartList: selectedCartList,
+                    totalPrice: state.totalPrice,
+                  )
+                : const SizedBox.shrink();
+          },
+        ),
+      ),
     );
   }
 }
