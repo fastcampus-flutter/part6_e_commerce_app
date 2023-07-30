@@ -150,7 +150,7 @@ class _$_CartListState implements _CartListState {
       {this.status = Status.initial,
       this.error = const ErrorResponse(),
       final List<Cart> cartList = const <Cart>[],
-      final List<String> selectedProduct = const [],
+      final List<String> selectedProduct = const <String>[],
       this.totalPrice = 0})
       : _cartList = cartList,
         _selectedProduct = selectedProduct;
