@@ -40,12 +40,12 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
     Payload payload = _getPayLoad(event.cartList);
 
-    (bool, String?) response = await _bootPay(
+    var (isSuccess, data) = await _bootPay(
       event.context,
       payload,
     );
 
-    if (response.$1) {
+    if (isSuccess) {
       emit(
         state.copyWith(
           status: PaymentStatus.success,
@@ -55,8 +55,8 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
       );
     } else {
       var message = '결제가 실패했습니다. 잠시후 다시 시도해주세요';
-      if (response.$2 != null) {
-        var decoded = jsonDecode(response.$2 ?? '');
+      if (data != null) {
+        var decoded = jsonDecode(data);
         message = decoded['message'] ?? message;
       }
       emit(state.copyWith(status: PaymentStatus.error, message: message));
@@ -124,7 +124,7 @@ Payload _getPayLoad(List<Cart> cartList) {
   payload.items = itemList;
 
   Extra extra = Extra();
-  extra.appScheme = 'com.example.eCommerceApp';
+  extra.appScheme = 'facamMarket';
 
   payload.extra = extra;
 
