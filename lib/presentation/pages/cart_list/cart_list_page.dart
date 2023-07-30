@@ -9,7 +9,9 @@ import '../../../core/theme/custom/custom_font_weight.dart';
 import '../../../core/theme/custom/custom_theme.dart';
 import '../../../core/utils/constant.dart';
 import '../../../core/utils/extensions.dart';
+import '../../../dependency_injection.dart';
 import '../../../domain/model/display/cart/cart.model.dart';
+import '../../main/bloc/paymoent_bloc/payment_bloc.dart';
 import '../../main/component/payment/payment_button.dart';
 import '../../main/component/top_app_bar/widgets/svg_icon_button.dart';
 import 'bloc/cart_list_bloc/cart_list_bloc.dart';
@@ -36,157 +38,160 @@ class CartListView extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: Align(
-          alignment: Alignment.center,
-          child: SvgIconButton(
-            icon: AppIcons.close,
-            color: colorScheme.contentPrimary,
-            onPressed: () {
-              if (context.canPop()) {
-                context.pop();
-              }
-            },
+    return BlocProvider(
+      create: (_) => getIt<PaymentBloc>(),
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Align(
+            alignment: Alignment.center,
+            child: SvgIconButton(
+              icon: AppIcons.close,
+              color: colorScheme.contentPrimary,
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                }
+              },
+            ),
           ),
+          title: const Text('장바구니'),
+          elevation: 0,
+          backgroundColor: AppColors.white,
+          titleTextStyle: textTheme.titleMedium
+              ?.copyWith(color: colorScheme.contentPrimary)
+              .semiBold,
         ),
-        title: const Text('장바구니'),
-        elevation: 0,
-        backgroundColor: AppColors.white,
-        titleTextStyle: textTheme.titleMedium
-            ?.copyWith(color: colorScheme.contentPrimary)
-            .semiBold,
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  BlocBuilder<CartListBloc, CartListState>(
-                    builder: (context, state) {
-                      final cartList = state.cartList;
-                      final selectedProducts = state.selectedProduct;
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    BlocBuilder<CartListBloc, CartListState>(
+                      builder: (context, state) {
+                        final cartList = state.cartList;
+                        final selectedProducts = state.selectedProduct;
 
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            child: SvgPicture.asset(
-                              (selectedProducts.length == cartList.length)
-                                  ? AppIcons.checkMarkCircleFill
-                                  : AppIcons.checkMarkCircle,
-                              width: 28,
-                              height: 28,
-                              colorFilter: ColorFilter.mode(
-                                (selectedProducts.length == cartList.length &&
-                                        cartList.length != 0)
-                                    ? colorScheme.primary
-                                    : colorScheme.contentFourth,
-                                BlendMode.srcIn,
+                        return Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              child: SvgPicture.asset(
+                                (selectedProducts.length == cartList.length)
+                                    ? AppIcons.checkMarkCircleFill
+                                    : AppIcons.checkMarkCircle,
+                                width: 28,
+                                height: 28,
+                                colorFilter: ColorFilter.mode(
+                                  (selectedProducts.length == cartList.length &&
+                                          cartList.length != 0)
+                                      ? colorScheme.primary
+                                      : colorScheme.contentFourth,
+                                  BlendMode.srcIn,
+                                ),
                               ),
+                              onTap: () => context
+                                  .read<CartListBloc>()
+                                  .add(CartListSelectedAll()),
                             ),
-                            onTap: () => context
-                                .read<CartListBloc>()
-                                .add(CartListSelectedAll()),
-                          ),
-                          const SizedBox(width: 10),
-                          Text(
-                            '전체 선택 ( ${selectedProducts.length} /${cartList.length})',
-                            style: textTheme.titleSmall
-                                ?.copyWith(
-                                  color: colorScheme.contentPrimary,
-                                )
-                                .regular,
-                          ),
+                            const SizedBox(width: 10),
+                            Text(
+                              '전체 선택 ( ${selectedProducts.length} /${cartList.length})',
+                              style: textTheme.titleSmall
+                                  ?.copyWith(
+                                    color: colorScheme.contentPrimary,
+                                  )
+                                  .regular,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        height: 40,
+                        child: Text(
+                          '전체 삭제',
+                          style: textTheme.titleSmall
+                              ?.copyWith(
+                                color: colorScheme.contentSecondary,
+                              )
+                              .semiBold,
+                        ),
+                      ),
+                      onTap: () =>
+                          context.read<CartListBloc>().add(CartListCleared()),
+                    ),
+                  ],
+                ),
+              ),
+              Divider(
+                height: 8,
+                thickness: 8,
+                color: colorScheme.surface,
+              ),
+              BlocBuilder<CartListBloc, CartListState>(
+                builder: (context, state) {
+                  switch (state.status) {
+                    case Status.initial:
+                      return Container(
+                        height: 300,
+                        child: const Center(
+                          child: Text('init'),
+                        ),
+                      );
+                    case Status.success:
+                      return Column(
+                        children: [
+                          ...state.cartList
+                              .map((cart) => CartProductCard(cart: cart))
+                              .toList(),
+                          const CartTotalPrice(),
                         ],
                       );
-                    },
-                  ),
-                  GestureDetector(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      height: 40,
-                      child: Text(
-                        '전체 삭제',
-                        style: textTheme.titleSmall
-                            ?.copyWith(
-                              color: colorScheme.contentSecondary,
-                            )
-                            .semiBold,
-                      ),
-                    ),
-                    onTap: () =>
-                        context.read<CartListBloc>().add(CartListCleared()),
-                  ),
-                ],
+                    case Status.loading:
+                      return const Center(child: CircularProgressIndicator());
+                    case Status.error:
+                      return Container(
+                        height: 300,
+                        child: const Center(
+                          child: Text('error'),
+                        ),
+                      );
+                  }
+                },
               ),
-            ),
-            Divider(
-              height: 8,
-              thickness: 8,
-              color: colorScheme.surface,
-            ),
-            BlocBuilder<CartListBloc, CartListState>(
-              builder: (context, state) {
-                switch (state.status) {
-                  case Status.initial:
-                    return Container(
-                      height: 300,
-                      child: const Center(
-                        child: Text('init'),
-                      ),
-                    );
-                  case Status.success:
-                    return Column(
-                      children: [
-                        ...state.cartList
-                            .map((cart) => CartProductCard(cart: cart))
-                            .toList(),
-                        const CartTotalPrice(),
-                      ],
-                    );
-                  case Status.loading:
-                    return const Center(child: CircularProgressIndicator());
-                  case Status.error:
-                    return Container(
-                      height: 300,
-                      child: const Center(
-                        child: Text('error'),
-                      ),
-                    );
-                }
-              },
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-      bottomNavigationBar: SafeArea(
-        child: BlocBuilder<CartListBloc, CartListState>(
-          builder: (context, state) {
-            List<Cart> selectedCartList = state.cartList.fold(
-              [],
-              (previousValue, cart) {
-                final List<Cart> currentValue = [...previousValue];
+        bottomNavigationBar: SafeArea(
+          child: BlocBuilder<CartListBloc, CartListState>(
+            builder: (context, state) {
+              List<Cart> selectedCartList = state.cartList.fold(
+                [],
+                (previousValue, cart) {
+                  final List<Cart> currentValue = [...previousValue];
 
-                if (state.selectedProduct.contains(cart.product.productId)) {
-                  currentValue.add(cart);
-                }
+                  if (state.selectedProduct.contains(cart.product.productId)) {
+                    currentValue.add(cart);
+                  }
 
-                return currentValue;
-              },
-            );
+                  return currentValue;
+                },
+              );
 
-            return state.status.isSuccess
-                ? PaymentButton(
-                    selectedCartList: selectedCartList,
-                    totalPrice: state.totalPrice,
-                  )
-                : const SizedBox.shrink();
-          },
+              return state.status.isSuccess
+                  ? PaymentButton(
+                      selectedCartList: selectedCartList,
+                      totalPrice: state.totalPrice,
+                    )
+                  : const SizedBox.shrink();
+            },
+          ),
         ),
       ),
     );
