@@ -9,7 +9,7 @@ class UserUsecase {
 
   UserUsecase(this._userRepository);
 
-  Future execute<T>({required RemoteUsecase usecase}) async {
+  Future<T> execute<T>({required RemoteUsecase usecase}) async {
     return await usecase(_userRepository);
   }
 }

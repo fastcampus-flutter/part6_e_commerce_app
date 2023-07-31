@@ -7,6 +7,7 @@ import '../../core/utils/rest_client/rest_client.dart';
 import 'local_storage/display.dao.dart';
 import 'mock/display/display.mock_api.dart';
 import 'remote/display/display.api.dart';
+import 'remote/user/user.api.dart';
 
 @module
 abstract class DataSourceModule {
@@ -22,6 +23,9 @@ abstract class DataSourceModule {
     // return DisplayMockApi();
     return DisplayApi(_dio);
   }
+
+  @singleton
+  UserApi get userApi => UserApi(_dio);
 
   @singleton
   DisplayDao get displayDao => DisplayDao();
