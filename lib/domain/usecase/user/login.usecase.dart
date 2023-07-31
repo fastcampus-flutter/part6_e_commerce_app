@@ -4,9 +4,10 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 import '../../../core/utils/exception/common_exception.dart';
 import '../../../core/utils/logger.dart';
 import '../../repository/repository.dart';
+import '../../repository/use.repository.dart';
 import '../base/remote.usecase.dart';
 
-class LoginUsecase extends RemoteUsecase {
+class LoginUsecase extends RemoteUsecase<UserRepository> {
   @override
   Future<User?> call(Repository repository) async {
     if (await isKakaoTalkInstalled()) {
