@@ -40,7 +40,8 @@ class UserPage extends StatelessWidget {
                     SizedBox(
                       height: 48,
                       child: TextButton(
-                        onPressed: null,
+                        onPressed: () =>
+                            context.read<UserBloc>().add(UserLogin()),
                         style: const ButtonStyle(
                           padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
                             EdgeInsets.zero,
@@ -76,6 +77,8 @@ class UserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<UserBloc>().state.user;
+
     return Center(
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 32),
@@ -83,7 +86,7 @@ class UserProfile extends StatelessWidget {
           children: [
             ClipOval(
               child: Image.network(
-                '',
+                user?.kakaoAccount?.profile?.profileImageUrl ?? '',
                 width: 110,
                 height: 110,
               ),
@@ -92,7 +95,7 @@ class UserProfile extends StatelessWidget {
               height: 24,
             ),
             Text(
-              '무명의 사용자',
+              user?.kakaoAccount?.profile?.nickname.toString() ?? '무명의 사용자',
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
@@ -107,7 +110,11 @@ class UserProfile extends StatelessWidget {
             Container(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: null,
+                onPressed: () {
+                  context.read<UserBloc>().add(
+                        UserLogout(),
+                      );
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStatePropertyAll<Color>(
                     Theme.of(context).primaryColor,

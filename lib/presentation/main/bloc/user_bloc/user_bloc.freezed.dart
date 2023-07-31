@@ -47,7 +47,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
   @override
   $Res call({
     Object? status = null,
-    Object? error = freezed,
+    Object? error = null,
     Object? user = freezed,
   }) {
     return _then(_value.copyWith(
@@ -55,7 +55,7 @@ class _$UserStateCopyWithImpl<$Res, $Val extends UserState>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      error: freezed == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as ErrorResponse,
@@ -89,7 +89,7 @@ class __$$_UserStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? error = freezed,
+    Object? error = null,
     Object? user = freezed,
   }) {
     return _then(_$_UserState(
@@ -97,7 +97,7 @@ class __$$_UserStateCopyWithImpl<$Res>
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as Status,
-      error: freezed == error
+      error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as ErrorResponse,
@@ -137,13 +137,12 @@ class _$_UserState implements _UserState {
         (other.runtimeType == runtimeType &&
             other is _$_UserState &&
             (identical(other.status, status) || other.status == status) &&
-            const DeepCollectionEquality().equals(other.error, error) &&
+            (identical(other.error, error) || other.error == error) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, status, const DeepCollectionEquality().hash(error), user);
+  int get hashCode => Object.hash(runtimeType, status, error, user);
 
   @JsonKey(ignore: true)
   @override
