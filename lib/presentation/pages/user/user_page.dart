@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/theme/constant/app_colors.dart';
 import '../../../core/theme/constant/app_icons.dart';
 import '../../../core/theme/custom/custom_font_weight.dart';
 import '../../../core/theme/custom/custom_theme.dart';
+import '../../../core/utils/constant.dart';
+import '../../main/bloc/user_bloc/user_bloc.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -12,42 +15,57 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20),
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          vertical: 60,
-        ),
-        child: Column(
-          children: [
-            Text(
-              '''간편하게 로그인하고\n패캠마켓의\n다양한 서비스를 이용해보세요.''',
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(
-                    color: Theme.of(context).colorScheme.contentPrimary,
-                  )
-                  .regular,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 24),
-            SizedBox(
-              height: 48,
-              child: TextButton(
-                onPressed: null,
-                style: const ButtonStyle(
-                  padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
-                    EdgeInsets.zero,
-                  ),
+      child: BlocBuilder<UserBloc, UserState>(
+        builder: (context, state) {
+          switch (state.status) {
+            case Status.initial:
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 60,
                 ),
-                child: Image.asset(
-                  AppIcons.kakaoLogin,
-                  width: double.infinity,
-                  fit: BoxFit.fitWidth,
+                child: Column(
+                  children: [
+                    Text(
+                      '''간편하게 로그인하고\n패캠마켓의\n다양한 서비스를 이용해보세요.''',
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(
+                            color: Theme.of(context).colorScheme.contentPrimary,
+                          )
+                          .regular,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(height: 24),
+                    SizedBox(
+                      height: 48,
+                      child: TextButton(
+                        onPressed: null,
+                        style: const ButtonStyle(
+                          padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
+                            EdgeInsets.zero,
+                          ),
+                        ),
+                        child: Image.asset(
+                          AppIcons.kakaoLogin,
+                          width: double.infinity,
+                          fit: BoxFit.fitWidth,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ),
-          ],
-        ),
+              );
+            case Status.loading:
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            case Status.success:
+              return UserProfile();
+            case Status.error:
+              return const Center(child: Text('error'));
+          }
+        },
       ),
     );
   }

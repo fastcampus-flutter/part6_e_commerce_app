@@ -33,6 +33,8 @@ import 'package:lecture_e_commerce/presentation/main/bloc/cart_bloc/cart_bloc.da
     as _i3;
 import 'package:lecture_e_commerce/presentation/main/bloc/paymoent_bloc/payment_bloc.dart'
     as _i10;
+import 'package:lecture_e_commerce/presentation/main/bloc/user_bloc/user_bloc.dart'
+    as _i15;
 import 'package:lecture_e_commerce/presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart'
     as _i15;
 import 'package:lecture_e_commerce/presentation/pages/home/bloc/menu_bloc/menu_bloc.dart'
