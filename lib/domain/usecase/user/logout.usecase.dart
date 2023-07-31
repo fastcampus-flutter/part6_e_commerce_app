@@ -5,7 +5,7 @@ import '../base/remote.usecase.dart';
 
 class LogoutUsecase extends RemoteUsecase {
   @override
-  Future<void> call(Repository? repository) async {
+  Future<void> call(Repository repository) async {
     await UserApi.instance.logout();
   }
 }
