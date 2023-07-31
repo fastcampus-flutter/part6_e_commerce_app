@@ -27,6 +27,7 @@ dependencies:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   bootpay:
+  kakao_flutter_sdk_user:
 
 dev_dependencies:
   build_runner: ^2.4.6
