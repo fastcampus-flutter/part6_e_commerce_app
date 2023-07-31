@@ -8,7 +8,7 @@ import '../base/remote.usecase.dart';
 
 class LoginUsecase extends RemoteUsecase {
   @override
-  Future<User?> call(Repository? repository) async {
+  Future<User?> call(Repository repository) async {
     if (await isKakaoTalkInstalled()) {
       try {
         await UserApi.instance.loginWithKakaoTalk();
