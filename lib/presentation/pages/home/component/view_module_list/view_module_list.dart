@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/utils/extensions.dart';
+import '../../../../main/component/placeholder/home_placeholder.dart';
 import '../../bloc/view_module_bloc/view_module_bloc.dart';
 import '../footer/footer.dart';
 
@@ -50,7 +51,7 @@ class _ViewModuleListState extends State<ViewModuleList> {
     return RefreshIndicator(
       child: BlocBuilder<ViewModuleBloc, ViewModuleState>(builder: (_, state) {
         return (state.status.isInitial || state.viewModules.isEmpty)
-            ? LoadingWidget()
+            ? const HomePlaceholder()
             : ListView(controller: scrollController, children: [
                 ...state.viewModules,
                 if (state.status.isLoading) const LoadingWidget(isBottom: true),

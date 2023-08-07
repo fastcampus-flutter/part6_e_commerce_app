@@ -30,6 +30,7 @@ dependencies:
   kakao_flutter_sdk_user:
   firebase_core: ^2.15.0
   firebase_auth: ^4.7.2
+  shimmer:
 
 dev_dependencies:
   build_runner: ^2.4.6
