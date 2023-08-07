@@ -26,7 +26,7 @@ void main() async {
   Hive.registerAdapter(CartEntityAdapter());
 
   KakaoSdk.init(
-    nativeAppKey: 'e2bdf396519419f373c8ab46fcc695d6',
+    nativeAppKey: '1ba462d2655c5f7f7f7010562bd222f8',
   );
 
   // firebase initialize

@@ -13,7 +13,7 @@ class _UserApi implements UserApi {
     this._dio, {
     this.baseUrl,
   }) {
-    baseUrl ??= 'https://us-central1-market-7b554.cloudfunctions.net/';
+    baseUrl ??= 'https://us-central1-test-app-5d77d.cloudfunctions.net/';
   }
 
   final Dio _dio;

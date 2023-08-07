@@ -66,7 +66,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     UserLoginWithToken event,
     Emitter<UserState> emit,
   ) async {
-    print('asdfsadfa');
     emit(state.copyWith(status: Status.loading));
     try {
       final response = await _userUsecase.execute<Result<User>>(
