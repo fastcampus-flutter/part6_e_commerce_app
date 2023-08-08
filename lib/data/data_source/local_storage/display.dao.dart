@@ -44,4 +44,32 @@ class DisplayDao {
       data: localStorage.values.toList(),
     );
   }
+
+  // 장바구니에 담긴 상품 삭제 by productId
+  Future<ResponseWrapper<List<CartEntity>>> deleteCart(
+    List<String> productIds,
+  ) async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    await localStorage.deleteAll(productIds);
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 $productIds 해당상품 삭제 성공',
+      data: localStorage.values.toList(),
+    );
+  }
+
+// 장바구니 전체 삭제
+  Future<ResponseWrapper<List<CartEntity>>> clearCarts() async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    await localStorage.clear();
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 전체 삭제 성공',
+      data: [],
+    );
+  }
 }
