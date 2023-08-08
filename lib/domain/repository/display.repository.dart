@@ -13,4 +13,18 @@ abstract class DisplayRepository extends Repository {
     required int tabId,
     required int page,
   });
+
+  // 장바구니 리스트 불러오기
+  Future<ResponseWrapper<List<Cart>>> getCartList();
+
+  // 장바구니 담기
+  Future<ResponseWrapper<List<Cart>>> addCartList({required Cart cart});
+
+  /// 장바구니 삭제
+  Future<ResponseWrapper<List<Cart>>> deleteCartByPrdId(
+    List<String> productIds,
+  );
+
+  /// 장바구니 비우기
+  Future<ResponseWrapper<List<Cart>>> clearCartList();
 }
