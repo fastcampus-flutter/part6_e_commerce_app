@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/utils/rest_client/rest_client.dart';
+import '../../main.dart';
 import 'local_storage/display.dao.dart';
 import 'mock/display/display.mock_api.dart';
 import 'remote/display/display.api.dart';
@@ -20,8 +21,11 @@ abstract class DataSourceModule {
 
     _dio.options.baseUrl = baseUrl;
 
-    // return DisplayMockApi();
-    return DisplayApi(_dio);
+    return TargetApiValue().isRemoteApi
+        ? DisplayApi(
+            _dio,
+          )
+        : DisplayMockApi();
   }
 
   @singleton

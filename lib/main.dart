@@ -6,8 +6,10 @@ import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
 import 'core/theme/theme_data.dart';
 
+import 'core/utils/constant.dart';
 import 'data/entity/display/cart/cart.entity.dart';
 import 'data/entity/display/product_info/product_info.entity.dart';
+import 'data/entity/display/target_api/target_api.dart';
 import 'dependency_injection.dart';
 
 import 'firebase_options.dart';
@@ -17,13 +19,17 @@ import 'presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'presentation/routes/routes.dart';
 
 void main() async {
-  configureDependencies();
   // hive 초기화
   await Hive.initFlutter();
 
   // hive object adapter
+  Hive.registerAdapter(TargetApiAdapter());
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
+
+  await TargetApiValue().setTargetApi();
+
+  configureDependencies();
 
   KakaoSdk.init(
     nativeAppKey: '1ba462d2655c5f7f7f7010562bd222f8',
@@ -61,6 +67,27 @@ class MainApp extends StatelessWidget {
         routerConfig: router,
         theme: CustomThemeData.themeData,
       ),
+    );
+  }
+}
+
+class TargetApiValue {
+  TargetApi? targetApi = TargetApi.REMOTE;
+
+  static final TargetApiValue _instance = TargetApiValue._internal();
+
+  bool get isRemoteApi => targetApi == TargetApi.REMOTE;
+
+  factory TargetApiValue() => _instance;
+
+  TargetApiValue._internal();
+
+  Future<void> setTargetApi() async {
+    var localStorage = await Hive.openBox<TargetApi>(Constants.targetApiKey);
+
+    targetApi = localStorage.get(
+      Constants.targetApiKey,
+      defaultValue: TargetApi.REMOTE,
     );
   }
 }
