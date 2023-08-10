@@ -26,24 +26,22 @@ class AddCartBtn extends StatelessWidget {
           width: MediaQuery.of(context).size.width,
           height: 52,
           child: RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '${cartBlocState.totalPrice.toWon()}',
-                  style: textTheme.titleSmall?.semiBold?.copyWith(
-                    color: colorScheme.onPrimary,
-                  ),
-                ),
-                TextSpan(
-                  text: ' 장바구니 담기',
-                  style: textTheme.titleSmall?.copyWith(
-                    color: colorScheme.onPrimary,
-                  ),
-                ),
-              ],
-            ),
+            text: TextSpan(children: [
+              TextSpan(
+                text: '${cartBlocState.totalPrice.toWon()}',
+                style: textTheme.titleSmall?.semiBold
+                    ?.copyWith(color: colorScheme.onPrimary),
+              ),
+              TextSpan(
+                text: ' 장바구니 담기',
+                style: textTheme.titleSmall
+                    ?.copyWith(color: colorScheme.onPrimary),
+              ),
+            ]),
           ),
         ),
+        //TODO 장바구니 담기
+        onTap: () {},
       ),
     );
   }
