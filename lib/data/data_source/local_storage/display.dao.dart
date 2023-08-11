@@ -72,4 +72,34 @@ class DisplayDao {
       data: [],
     );
   }
+
+  ///장바구니 수량 변경
+  Future<ResponseWrapper<List<CartEntity>>> changeQtyCart(
+    String productId,
+    int quantity,
+  ) async {
+    final localStorage = await Hive.openBox<CartEntity>(_cartDb);
+    final curCart = localStorage.get(productId);
+    if (curCart == null) {
+      final status = '장바구니 인스턴스가 존재하지 않습니다.';
+      final code = 'CART-0001';
+      final message = '네트워크 오류가 발생했습니다. 잠시 후에 다시 시도해주세요.';
+
+      return ResponseWrapper(
+        status: status,
+        code: code,
+        message: message,
+      );
+    }
+
+    final nextCart = CartEntity(product: curCart.product, quantity: quantity);
+    await localStorage.put(productId, nextCart);
+
+    return ResponseWrapper(
+      status: 'SUCCESS',
+      code: '0000',
+      message: '장바구니 갯수 변경 성공',
+      data: localStorage.values.toList(),
+    );
+  }
 }
