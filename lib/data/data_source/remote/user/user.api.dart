@@ -5,10 +5,7 @@ import '../../../dto/common/response_wrapper/response_wrapper.dart';
 
 part 'user.api.g.dart';
 
-const String _baseUrl =
-    'https://us-central1-test-app-5d77d.cloudfunctions.net/';
-
-@RestApi(baseUrl: _baseUrl)
+@RestApi()
 abstract class UserApi {
   factory UserApi(Dio _dio) = _UserApi;
 

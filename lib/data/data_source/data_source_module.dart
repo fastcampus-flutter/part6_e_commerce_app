@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../core/utils/rest_client/rest_client.dart';
@@ -29,7 +30,9 @@ abstract class DataSourceModule {
   }
 
   @singleton
-  UserApi get userApi => UserApi(_dio);
+  UserApi get userApi => UserApi(
+        Dio()..options.baseUrl = dotenv.env['USER_API'] ?? '',
+      );
 
   @singleton
   DisplayDao get displayDao => DisplayDao();

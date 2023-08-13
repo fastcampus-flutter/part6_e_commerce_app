@@ -12,9 +12,7 @@ class _UserApi implements UserApi {
   _UserApi(
     this._dio, {
     this.baseUrl,
-  }) {
-    baseUrl ??= 'https://us-central1-test-app-5d77d.cloudfunctions.net/';
-  }
+  });
 
   final Dio _dio;
 
