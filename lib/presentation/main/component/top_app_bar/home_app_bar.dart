@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
@@ -27,14 +28,16 @@ class HomeAppBar extends StatelessWidget {
               icon: AppIcons.mainLogo,
               color: state.theme.logoColor,
               padding: 8,
-              onPressed: () async {
-                await showDialog<bool>(
-                  context: context,
-                  builder: (_) {
-                    return ServerSelector();
-                  },
-                );
-              },
+              onPressed: dotenv.env['FLAVOR'] == 'dev'
+                  ? () async {
+                      await showDialog<bool>(
+                        context: context,
+                        builder: (_) {
+                          return ServerSelector();
+                        },
+                      );
+                    }
+                  : null,
             ),
             title: AnimatedContainer(
               decoration: BoxDecoration(

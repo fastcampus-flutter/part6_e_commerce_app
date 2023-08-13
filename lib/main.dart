@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:kakao_flutter_sdk_user/kakao_flutter_sdk_user.dart';
 
@@ -18,7 +19,7 @@ import 'presentation/main/bloc/user_bloc/user_bloc.dart';
 import 'presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'presentation/routes/routes.dart';
 
-void main() async {
+void main(name, options) async {
   // hive 초기화
   await Hive.initFlutter();
 
@@ -37,7 +38,8 @@ void main() async {
 
   // firebase initialize
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    name: name,
+    options: options,
   );
 
   runApp(const MainApp());
@@ -66,6 +68,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp.router(
         routerConfig: router,
         theme: CustomThemeData.themeData,
+        debugShowCheckedModeBanner: dotenv.env['FLAVOR'] == 'dev',
       ),
     );
   }
