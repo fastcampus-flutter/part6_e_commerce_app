@@ -57,6 +57,20 @@ android {
         versionName flutterVersionName
     }
 
+    flavorDimensions "app"
+
+    productFlavors {
+        dev {
+            dimension "app"
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "패캠마켓DEV"
+        }
+        prod {
+            dimension "app"
+            resValue "string", "app_name", "패캠마켓"
+        }
+    }
+
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
