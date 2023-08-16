@@ -12,21 +12,25 @@ class AddCartButton extends StatelessWidget {
     return Positioned(
       right: 8,
       bottom: 8,
-      child: Container(
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(0.47),
-          shape: BoxShape.circle,
-        ),
-        width: 32,
-        height: 32,
-        child: Center(
-          child: SvgPicture.asset(
-            AppIcons.cart,
-            width: 20,
-            height: 20,
-            colorFilter: ColorFilter.mode(
-              AppColors.white,
-              BlendMode.srcIn,
+      child: GestureDetector(
+        //TODO 장바구니 바텀시트 호출
+        onTap: null,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.47),
+            shape: BoxShape.circle,
+          ),
+          width: 32,
+          height: 32,
+          child: Center(
+            child: SvgPicture.asset(
+              AppIcons.cart,
+              width: 20,
+              height: 20,
+              colorFilter: ColorFilter.mode(
+                AppColors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
