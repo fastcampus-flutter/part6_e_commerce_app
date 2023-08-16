@@ -27,4 +27,10 @@ abstract class DisplayRepository extends Repository {
 
   /// 장바구니 비우기
   Future<ResponseWrapper<List<Cart>>> clearCartList();
+
+  // 장바구니 수량 변경
+  Future<ResponseWrapper<List<Cart>>> changeCartQuantityByPrdId({
+    required String productId,
+    required int qty,
+  });
 }

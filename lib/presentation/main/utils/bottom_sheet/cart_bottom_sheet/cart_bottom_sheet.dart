@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../domain/model/display/product_info/product_info.model.dart';
+import '../../../bloc/cart_bloc/cart_bloc.dart';
 import 'widgets/add_cart_btn.dart';
-import 'widgets/cart_benefit.dart';
 import 'widgets/cart_price_info.dart';
 import 'widgets/cart_product_info.dart';
 
@@ -9,21 +11,25 @@ Future<bool?> cartBottomSheet(BuildContext context) {
   return showModalBottomSheet(
     context: context,
     builder: (_) {
-      return const SafeArea(
+      return SafeArea(
         child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CartProductInfo(),
-              Divider(thickness: 1),
-              CartPriceInfo(),
-              CartBenefit(),
-              SizedBox(height: 12),
-              SizedBox(height: 12),
-              AddCartBtn(),
-              SizedBox(height: 10),
-            ],
+          child: BlocBuilder<CartBloc, CartState>(
+            builder: (_, state) {
+              final ProductInfo productInfo = state.productInfo;
+              final int totalPrice = state.totalPrice;
+              final int quantity = state.quantity;
+
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  CartProductInfo(productInfo: productInfo),
+                  const Divider(thickness: 1),
+                  CartPriceInfo(productInfo: productInfo, quantity: quantity),
+                  AddCartBtn(totalPrice: totalPrice),
+                ],
+              );
+            },
           ),
         ),
       );
@@ -33,8 +39,6 @@ Future<bool?> cartBottomSheet(BuildContext context) {
         top: Radius.circular(12.0),
       ),
     ),
-    isScrollControlled: true,
     showDragHandle: true,
-    useSafeArea: true,
   );
 }
