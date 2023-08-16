@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/extensions.dart';
+import '../../../../../../domain/model/display/product_info/product_info.model.dart';
 import '../../../../bloc/cart_bloc/cart_bloc.dart';
 
 class CartProductInfo extends StatelessWidget {
-  const CartProductInfo({Key? key}) : super(key: key);
+  final ProductInfo productInfo;
+
+  const CartProductInfo({required this.productInfo, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final productInfo = context.watch<CartBloc>().state.productInfo;
-
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Row(
