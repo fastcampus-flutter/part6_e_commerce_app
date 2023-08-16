@@ -84,7 +84,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
   }
 
-  Future<void> _onCartQuantityDecreased(
+  void _onCartQuantityDecreased(
     CartQuantityDecreased event,
     Emitter<CartState> emit,
   ) async {
