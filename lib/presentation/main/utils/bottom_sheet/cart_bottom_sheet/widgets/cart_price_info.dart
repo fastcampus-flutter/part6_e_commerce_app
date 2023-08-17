@@ -1,25 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../../core/theme/custom/custom_theme.dart';
 import '../../../../../../core/utils/extensions.dart';
+import '../../../../../../core/utils/widgets/cart_counter_btn.dart';
 import '../../../../../../domain/model/display/product_info/product_info.model.dart';
 import '../../../../bloc/cart_bloc/cart_bloc.dart';
-import '../../../../component/top_app_bar/widgets/svg_icon_button.dart';
-
-/// 96
-const double _counterWidth = 96;
-
-/// 36
-const double _counterHeight = 36;
-
-/// 16
-const double _counterIconSize = 16;
-
-/// 8
-const double _counterIconPadding = 8;
 
 class CartPriceInfo extends StatelessWidget {
   final ProductInfo productInfo;
@@ -71,38 +58,10 @@ class CartPriceInfo extends StatelessWidget {
                   ),
                 ],
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: colorScheme.outline),
-                  borderRadius: const BorderRadius.all(Radius.circular(4)),
-                ),
-                width: _counterWidth,
-                height: _counterHeight,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SvgIconButton(
-                      icon: AppIcons.subtract,
-                      color: (quantity != 1)
-                          ? colorScheme.contentPrimary
-                          : colorScheme.contentFourth,
-                      padding: _counterIconPadding,
-                      size: _counterIconSize,
-                      onPressed: _qtyDecreased,
-                    ),
-                    Text(
-                      '$quantity',
-                      style: textTheme.labelLarge.semiBold,
-                    ),
-                    SvgIconButton(
-                      icon: AppIcons.add,
-                      color: colorScheme.contentPrimary,
-                      padding: _counterIconPadding,
-                      size: _counterIconSize,
-                      onPressed: _qtyIncreased,
-                    ),
-                  ],
-                ),
+              CartCountBtn(
+                quantity: quantity,
+                decreased: _qtyDecreased,
+                increased: _qtyIncreased,
               ),
             ],
           ),
