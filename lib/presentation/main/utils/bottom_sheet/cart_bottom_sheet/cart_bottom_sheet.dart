@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/utils/extensions.dart';
+import '../../../../../core/utils/snack_bar/common_snack_bar.dart';
 import '../../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'widgets/add_cart_btn.dart';
 import 'widgets/cart_price_info.dart';
@@ -14,8 +16,12 @@ Future<bool?> cartBottomSheet(BuildContext context) {
       return SafeArea(
         child: BlocListener<CartListBloc, CartListState>(
           listener: (context, state) {
+            if (state.status.isError) {
+              CommonSnackBar.errorSnackBar(context, error: state.error);
+            }
             if (context.canPop()) {
-              context.pop();
+              print('[test] ${state.status}');
+              context.pop(!state.status.isError);
             }
           },
           listenWhen: (prev, cur) => prev.status != cur.status,
