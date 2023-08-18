@@ -28,6 +28,7 @@ class CartProductCard extends StatelessWidget {
 
     final productId = cart.product.productId;
 
+    final bloc = context.read<CartListBloc>();
     final isSelected = context.select(
       (CartListBloc bloc) => bloc.state.selectedProduct.contains(productId),
     );
@@ -43,8 +44,7 @@ class CartProductCard extends StatelessWidget {
                 : AppIcons.checkMarkCircle,
             color:
                 (isSelected) ? colorScheme.primary : colorScheme.contentFourth,
-            onPressed: () =>
-                context.read<CartListBloc>().add(CartListSelected(cart: cart)),
+            onPressed: () => bloc.add(CartListSelected(cart: cart)),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -68,9 +68,9 @@ class CartProductCard extends StatelessWidget {
                       child: SvgIconButton(
                         icon: AppIcons.close,
                         color: colorScheme.contentTertiary,
-                        onPressed: () => context.read<CartListBloc>().add(
-                              CartListDeleted(productIds: [productId]),
-                            ),
+                        onPressed: () => bloc.add(
+                          CartListDeleted(productIds: [productId]),
+                        ),
                       ),
                     ),
                   ],
@@ -98,8 +98,10 @@ class CartProductCard extends StatelessWidget {
                         const SizedBox(height: 20),
                         CartCountBtn(
                           quantity: cart.quantity,
-                          decreased: null,
-                          increased: null,
+                          decreased: () =>
+                              bloc.add(CartListQtyDecreased(cart: cart)),
+                          increased: () =>
+                              bloc.add(CartListQtyIncreased(cart: cart)),
                         ),
                       ],
                     ),

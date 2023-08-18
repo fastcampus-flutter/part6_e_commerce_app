@@ -9,6 +9,7 @@ import '../../../../../core/utils/logger.dart';
 import '../../../../../domain/model/display/display.model.dart';
 
 import '../../../../../domain/usecase/display/cart/cart.usecase.dart';
+import '../../../../../domain/usecase/display/cart/change_cart_qty.usecase.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';
 
 part 'cart_list_state.dart';
@@ -28,6 +29,8 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     on<CartListSelectedAll>(_onCartSelectedAll);
     on<CartListDeleted>(_onCartDeleted);
     on<CartListCleared>(_onCartListCleared);
+    on<CartListQtyDecreased>(_onCartQtyDecreased);
+    on<CartListQtyIncreased>(_onCartQtyIncreased);
   }
 
   Future<void> _onCartListInitialized(
@@ -226,6 +229,76 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
         selectedProduct: selectedProducts,
         totalPrice: totalPrice,
       ));
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
+    }
+  }
+
+  Future<void> _onCartQtyIncreased(
+    CartListQtyIncreased event,
+    Emitter<CartListState> emit,
+  ) async {
+    try {
+      final productId = event.cart.product.productId;
+      final qty = event.cart.quantity + 1;
+      final response = await _displayUsecase.execute(
+        usecase: ChangeCartQtyUsecase(productId: productId, qty: qty),
+      );
+
+      response.when(
+        success: (data) {
+          final List<Cart> cartList = [...data];
+
+          final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
+          emit(state.copyWith(
+            status: Status.success,
+            cartList: cartList,
+            totalPrice: totalPrice,
+          ));
+        },
+        failure: (error) {
+          emit(state.copyWith(status: Status.error, error: error));
+        },
+      );
+    } catch (error) {
+      CustomLogger.logger.e('${error.toString()}');
+      emit(state.copyWith(
+        status: Status.error,
+        error: CommonException.setError(error),
+      ));
+    }
+  }
+
+  Future<void> _onCartQtyDecreased(
+    CartListQtyDecreased event,
+    Emitter<CartListState> emit,
+  ) async {
+    try {
+      final productId = event.cart.product.productId;
+      final qty = event.cart.quantity - 1;
+      if (qty < 1) return;
+      final response = await _displayUsecase.execute(
+        usecase: ChangeCartQtyUsecase(productId: productId, qty: qty),
+      );
+      response.when(
+        success: (data) {
+          final List<Cart> cartList = [...data];
+
+          final totalPrice = _calTotalPrice(state.selectedProduct, cartList);
+          emit(state.copyWith(
+            status: Status.success,
+            cartList: cartList,
+            totalPrice: totalPrice,
+          ));
+        },
+        failure: (error) {
+          emit(state.copyWith(status: Status.error, error: error));
+        },
+      );
     } catch (error) {
       CustomLogger.logger.e('${error.toString()}');
       emit(state.copyWith(
