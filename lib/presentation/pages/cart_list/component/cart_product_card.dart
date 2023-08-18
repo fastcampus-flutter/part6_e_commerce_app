@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../core/theme/custom/custom_theme.dart';
+import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/widgets/cart_counter_btn.dart';
+import '../../../../domain/model/display/cart/cart.model.dart';
 import '../../../main/component/top_app_bar/widgets/svg_icon_button.dart';
 
 /// 78
@@ -13,7 +15,9 @@ const double _imageHeight = 78;
 const double _imageWidth = 60;
 
 class CartProductCard extends StatelessWidget {
-  const CartProductCard({super.key});
+  final Cart cart;
+
+  const CartProductCard({super.key, required this.cart});
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +43,15 @@ class CartProductCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Text(
-                          '상품이름',
-                          style: textTheme.titleSmall?.copyWith(
-                            color: colorScheme.contentPrimary,
-                          ),
+                    Expanded(
+                      child: Text(
+                        cart.product.title,
+                        style: textTheme.titleSmall?.copyWith(
+                          color: colorScheme.contentPrimary,
                         ),
-                      ],
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
                     ),
                     Center(
                       child: SvgIconButton(
@@ -63,8 +67,8 @@ class CartProductCard extends StatelessWidget {
                 Row(
                   children: [
                     // 상품 이미지
-                    Container(
-                      color: Colors.yellow,
+                    Image.network(
+                      cart.product.imageUrl,
                       width: _imageWidth,
                       height: _imageHeight,
                     ),
@@ -74,14 +78,14 @@ class CartProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '7,300원',
+                          cart.product.price.toWon(),
                           style: textTheme.titleMedium.bold?.copyWith(
                             color: colorScheme.contentPrimary,
                           ),
                         ),
                         const SizedBox(height: 20),
                         CartCountBtn(
-                          quantity: 1,
+                          quantity: cart.quantity,
                           decreased: null,
                           increased: null,
                         ),

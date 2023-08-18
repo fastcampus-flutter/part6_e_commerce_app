@@ -106,7 +106,12 @@ class CartListView extends StatelessWidget {
                     thickness: 8,
                     color: colorScheme.surface,
                   ),
-                  Column(children: [CartProductCard()]),
+                  Column(
+                    children: List.generate(
+                      state.cartList.length,
+                      (index) => CartProductCard(cart: state.cartList[index]),
+                    ),
+                  ),
                   CartTotalPrice(isEmpty: false),
                 ],
               );
