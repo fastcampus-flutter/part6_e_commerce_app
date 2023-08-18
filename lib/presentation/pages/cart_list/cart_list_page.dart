@@ -55,35 +55,47 @@ class CartListView extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(top: BorderSide(color: colorScheme.outline)),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(children: [
-                  SvgIconButton(
-                    icon: AppIcons.checkMarkCircle,
-                    color: colorScheme.contentFourth,
-                    onPressed: null,
-                  ),
-                  const SizedBox(width: 8),
-                  BlocBuilder<CartListBloc, CartListState>(
-                    builder: (_, state) {
-                      return Text(
+            child: BlocBuilder<CartListBloc, CartListState>(
+              builder: (context, state) {
+                final bool isSelectedAll =
+                    (state.selectedProduct.length == state.cartList.length) &&
+                        state.cartList.length != 0;
+
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(children: [
+                      SvgIconButton(
+                        icon: isSelectedAll
+                            ? AppIcons.checkMarkCircleFill
+                            : AppIcons.checkMarkCircle,
+                        color: isSelectedAll
+                            ? colorScheme.primary
+                            : colorScheme.contentFourth,
+                        onPressed: () => context
+                            .read<CartListBloc>()
+                            .add(CartListSelectedAll()),
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
                         '전체 선택 (${state.selectedProduct.length}/${state.cartList.length})',
                         style: textTheme.titleSmall
                             ?.copyWith(color: colorScheme.contentPrimary),
-                      );
-                    },
-                  ),
-                ]),
-                GestureDetector(
-                  child: Text(
-                    '선택 삭제',
-                    style: textTheme.titleSmall.semiBold
-                        ?.copyWith(color: colorScheme.contentSecondary),
-                  ),
-                  onTap: null,
-                ),
-              ],
+                      ),
+                    ]),
+                    GestureDetector(
+                      child: Text(
+                        '선택 삭제',
+                        style: textTheme.titleSmall.semiBold
+                            ?.copyWith(color: colorScheme.contentSecondary),
+                      ),
+                      onTap: () => context.read<CartListBloc>().add(
+                            CartListDeleted(productIds: state.selectedProduct),
+                          ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
           preferredSize: Size.fromHeight(48),
@@ -112,7 +124,7 @@ class CartListView extends StatelessWidget {
                       (index) => CartProductCard(cart: state.cartList[index]),
                     ),
                   ),
-                  CartTotalPrice(isEmpty: false),
+                  CartTotalPrice(isEmpty: state.cartList.isEmpty),
                 ],
               );
           }
