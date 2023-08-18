@@ -11,6 +11,8 @@ class CustomAppBarTheme {
   final Color indicatorColor;
   final Color labelColor;
   final Color unselectedLabelColor;
+  final Color badgeBgColor;
+  final Color badgeNumColor;
 
   static const int animationDuration = 400;
 
@@ -25,6 +27,8 @@ class CustomAppBarTheme {
     indicatorColor: AppColors.onPrimary,
     labelColor: AppColors.primary,
     unselectedLabelColor: AppColors.onPrimary,
+    badgeBgColor: AppColors.background,
+    badgeNumColor: AppColors.primary,
   );
 
   static final CustomAppBarTheme beauty = CustomAppBarTheme(
@@ -36,6 +40,8 @@ class CustomAppBarTheme {
     indicatorColor: AppColors.primary,
     labelColor: AppColors.onPrimary,
     unselectedLabelColor: AppColors.contentPrimary,
+    badgeBgColor: AppColors.primary,
+    badgeNumColor: AppColors.background,
   );
 
   CustomAppBarTheme({
@@ -47,5 +53,7 @@ class CustomAppBarTheme {
     required this.indicatorColor,
     required this.labelColor,
     required this.unselectedLabelColor,
+    required this.badgeBgColor,
+    required this.badgeNumColor,
   });
 }
