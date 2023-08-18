@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
@@ -7,6 +8,7 @@ import '../../../../core/utils/extensions.dart';
 import '../../../../core/utils/widgets/cart_counter_btn.dart';
 import '../../../../domain/model/display/cart/cart.model.dart';
 import '../../../main/component/top_app_bar/widgets/svg_icon_button.dart';
+import '../bloc/cart_list_bloc/cart_list_bloc.dart';
 
 /// 78
 const double _imageHeight = 78;
@@ -24,16 +26,25 @@ class CartProductCard extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
 
+    final productId = cart.product.productId;
+
+    final isSelected = context.select(
+      (CartListBloc bloc) => bloc.state.selectedProduct.contains(productId),
+    );
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, top: 20, right: 16),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SvgIconButton(
-            icon: AppIcons.checkMarkCircle,
-            color: colorScheme.contentFourth,
-            //TODO 상품 선택
-            onPressed: null,
+            icon: (isSelected)
+                ? AppIcons.checkMarkCircleFill
+                : AppIcons.checkMarkCircle,
+            color:
+                (isSelected) ? colorScheme.primary : colorScheme.contentFourth,
+            onPressed: () =>
+                context.read<CartListBloc>().add(CartListSelected(cart: cart)),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -57,8 +68,9 @@ class CartProductCard extends StatelessWidget {
                       child: SvgIconButton(
                         icon: AppIcons.close,
                         color: colorScheme.contentTertiary,
-                        //TODO 장바구니에서 상품 삭제
-                        onPressed: () {},
+                        onPressed: () => context.read<CartListBloc>().add(
+                              CartListDeleted(productIds: [productId]),
+                            ),
                       ),
                     ),
                   ],
