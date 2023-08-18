@@ -8,13 +8,13 @@ import '../../../../bloc/cart_bloc/cart_bloc.dart';
 const double _buttonHeight = 48;
 
 class AddCartBtn extends StatelessWidget {
-  const AddCartBtn({required this.totalPrice, Key? key}) : super(key: key);
-  final int totalPrice;
+  const AddCartBtn({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final textTheme = Theme.of(context).textTheme;
+    final totalPrice = context.watch<CartBloc>().state.totalPrice;
 
     return GestureDetector(
       child: Container(

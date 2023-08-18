@@ -5,21 +5,16 @@ import '../../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../../core/theme/custom/custom_theme.dart';
 import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../core/utils/widgets/cart_counter_btn.dart';
-import '../../../../../../domain/model/display/product_info/product_info.model.dart';
 import '../../../../bloc/cart_bloc/cart_bloc.dart';
 
 class CartPriceInfo extends StatelessWidget {
-  final ProductInfo productInfo;
-  final int quantity;
-
-  const CartPriceInfo({
-    required this.productInfo,
-    required this.quantity,
-    super.key,
-  });
+  const CartPriceInfo({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productInfo = context.watch<CartBloc>().state.productInfo;
+    final quantity = context.watch<CartBloc>().state.quantity;
+
     void _qtyIncreased() =>
         context.read<CartBloc>().add(CartQuantityIncreased());
     void _qtyDecreased() =>
