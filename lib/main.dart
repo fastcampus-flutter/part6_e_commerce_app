@@ -36,6 +36,7 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => getIt<CartListBloc>()..add(CartListInitialized()),
+          lazy: false,
         ),
       ],
       child: MaterialApp.router(
