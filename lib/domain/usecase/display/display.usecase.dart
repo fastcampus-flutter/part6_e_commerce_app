@@ -9,7 +9,7 @@ class DisplayUsecase {
 
   DisplayUsecase(this._displayRepository);
 
-  Future execute<T>({required Usecase usecase}) async {
+  Future<T> execute<T>({required Usecase usecase}) async {
     return await usecase(_displayRepository);
   }
 }
