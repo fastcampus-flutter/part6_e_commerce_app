@@ -6,6 +6,7 @@ import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_app_bar.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../core/utils/constant.dart';
+import '../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../routes/route_path.dart';
 import '../../cubit/mall_type_cubit.dart';
 import 'widgets/svg_icon_button.dart';
@@ -77,10 +78,36 @@ class HomeAppBar extends StatelessWidget {
                 color: state.theme.iconColor,
                 onPressed: null,
               ),
-              SvgIconButton(
-                icon: AppIcons.cart,
-                color: state.theme.iconColor,
-                onPressed: () => context.push(RoutePath.cartList),
+              Stack(
+                children: [
+                  SvgIconButton(
+                    icon: AppIcons.cart,
+                    color: state.theme.iconColor,
+                    onPressed: () => context.push(RoutePath.cartList),
+                  ),
+                  Positioned(
+                    top: 2,
+                    right: 0,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: state.theme.badgeBgColor,
+                        shape: BoxShape.circle,
+                      ),
+                      width: 13,
+                      height: 13,
+                      child: Center(
+                        child: Text(
+                          '${context.watch<CartListBloc>().state.cartList.length}',
+                          style: TextStyle(
+                            color: state.theme.badgeNumColor,
+                            fontSize: 9,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
             backgroundColor: Colors.transparent,

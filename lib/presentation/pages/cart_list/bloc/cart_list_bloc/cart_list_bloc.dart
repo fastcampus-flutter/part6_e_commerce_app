@@ -267,6 +267,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
     }
   }
 
+
   int _calTotalPrice(List<String> selectedIds, List<Cart> carts) {
     int price = 0;
     for (final id in selectedIds) {
