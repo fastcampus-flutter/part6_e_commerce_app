@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -20,6 +21,8 @@ import 'presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'presentation/routes/routes.dart';
 
 void main(name, options) async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // hive 초기화
   await Hive.initFlutter();
 
@@ -41,6 +44,10 @@ void main(name, options) async {
     name: name,
     options: options,
   );
+
+  if (await dotenv.env['FLAVOR'] == 'dev') {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  }
 
   runApp(const MainApp());
 }
