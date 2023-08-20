@@ -218,6 +218,7 @@
 				9705A1C41CF9048500538489 /* Embed Frameworks */,
 				3B06AD1E1E4923F5004D2608 /* Thin Binary */,
 				52AE448B931C429737636798 /* [CP] Embed Pods Frameworks */,
+				C81F02D731A0C7A74F84675E /* [firebase_crashlytics] Crashlytics Upload Symbols */,
 			);
 			buildRules = (
 			);
@@ -415,6 +416,29 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "environment=\"default\"\n \n if [[ $CONFIGURATION =~ -([^-]*)$ ]]; then\n environment=${BASH_REMATCH[1]}\n fi\n \n # Name and path of the resource we're copying\n FIREBASEPPID_INFO_PLIST=firebase_app_id_file.json\n FIREBASEPPID_INFO_FILE=${PROJECT_DIR}/Runner/config/${environment}/${FIREBASEPPID_INFO_PLIST}\n \n if [ ! -f $FIREBASEPPID_INFO_FILE ]\n then\n echo \"No firebase_app_id_file.json found. Please ensure it's in the proper directory.\"\n exit 1\n fi\n \n PLIST_DESTINATION=${PROJECT_DIR}\n cp \"${FIREBASEPPID_INFO_FILE}\" \"${PLIST_DESTINATION}\"\n";
+		};
+		C81F02D731A0C7A74F84675E /* [firebase_crashlytics] Crashlytics Upload Symbols */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}\"",
+				"\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/\"",
+				"\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"",
+				"\"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)\"",
+				"\"$(PROJECT_DIR)/firebase_app_id_file.json\"",
+			);
+			name = "[firebase_crashlytics] Crashlytics Upload Symbols";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/FirebaseCrashlytics/upload-symbols\" --flutter-project \"$PROJECT_DIR/firebase_app_id_file.json\" ";
 		};
 /* End PBXShellScriptBuildPhase section */
 
