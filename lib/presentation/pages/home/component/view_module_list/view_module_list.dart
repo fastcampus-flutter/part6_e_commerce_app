@@ -16,48 +16,35 @@ class ViewModuleList extends StatefulWidget {
 }
 
 class _ViewModuleListState extends State<ViewModuleList> {
-  final ScrollController scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    scrollController.addListener(_onScroll);
-  }
-
-  void _onScroll() {
-    if (_isEnd) {
-      context.read<ViewModuleBloc>().add(ViewModuleFetched());
-    }
-  }
-
-  @override
-  void dispose() {
-    scrollController
-      ..removeListener(_onScroll)
-      ..dispose();
-    super.dispose();
-  }
-
-  bool get _isEnd {
-    if (!scrollController.hasClients) return false;
-    final maxScroll = scrollController.position.maxScrollExtent;
-    final curScroll = scrollController.offset;
-
-    return curScroll >= maxScroll * (0.9);
-  }
-
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      child: BlocBuilder<ViewModuleBloc, ViewModuleState>(builder: (_, state) {
-        return (state.status.isInitial || state.viewModules.isEmpty)
-            ? const HomePlaceholder()
-            : ListView(controller: scrollController, children: [
-                ...state.viewModules,
-                if (state.status.isLoading) const LoadingWidget(isBottom: true),
-                Footer(),
-              ]);
-      }),
+      child: NotificationListener(
+        child: BlocBuilder<ViewModuleBloc, ViewModuleState>(
+          builder: (_, state) {
+            return (state.status.isInitial || state.viewModules.isEmpty)
+                ? const HomePlaceholder()
+                : ListView(
+                    children: [
+                      ...state.viewModules,
+                      if (state.status.isLoading)
+                        const LoadingWidget(isBottom: true),
+                      Footer(),
+                    ],
+                  );
+          },
+        ),
+        onNotification: (ScrollNotification scrollNotification) {
+          final maxScroll = scrollNotification.metrics.maxScrollExtent;
+          final curScroll = scrollNotification.metrics.pixels;
+
+          if (curScroll >= maxScroll * (0.9)) {
+            context.read<ViewModuleBloc>().add(ViewModuleFetched());
+          }
+
+          return false;
+        },
+      ),
       onRefresh: () async => context
           .read<ViewModuleBloc>()
           .add(ViewModuleInitialized(tabId: widget.tabId, isRefresh: true)),
