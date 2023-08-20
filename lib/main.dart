@@ -45,7 +45,7 @@ void main(name, options) async {
     options: options,
   );
 
-  if (await dotenv.env['FLAVOR'] == 'dev') {
+  if (await dotenv.env['FLAVOR'] == 'prod') {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   }
 
