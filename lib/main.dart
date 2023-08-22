@@ -6,6 +6,8 @@ import 'core/theme/theme_data.dart';
 
 import 'data/entity/display/cart/cart.entity.dart';
 import 'data/entity/display/product_info/product_info.entity.dart';
+import 'data/entity/display/view_module/view_module.entity.dart';
+import 'data/entity/display/view_module_list/view_module_list.entity.dart';
 import 'dependency_injection.dart';
 
 import 'presentation/main/bloc/cart_bloc/cart_bloc.dart';
@@ -20,6 +22,8 @@ void main() async {
   // hive object adapter
   Hive.registerAdapter(ProductInfoEntityAdapter());
   Hive.registerAdapter(CartEntityAdapter());
+  Hive.registerAdapter(ViewModuleEntityAdapter());
+  Hive.registerAdapter(ViewModuleListEntityAdapter());
 
   runApp(const MainApp());
 }

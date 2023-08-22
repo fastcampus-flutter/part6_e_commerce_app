@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 
 import '../../core/utils/constant.dart';
+import '../../domain/model/common/result/result.dart';
 import '../../domain/model/display/cart/cart.model.dart';
 import '../../domain/model/display/menu/menu.model.dart';
 import '../../domain/model/display/view_module/view_module.model.dart';
@@ -8,6 +9,7 @@ import '../../domain/repository/display.repository.dart';
 import '../data_source/local_storage/display.dao.dart';
 import '../data_source/remote/display/display.api.dart';
 import '../dto/common/response_wrapper/response_wrapper.dart';
+import '../entity/display/view_module_list/view_module_list.entity.dart';
 import '../mapper/common.mapper.dart';
 import '../mapper/display.mapper.dart';
 
@@ -33,13 +35,33 @@ class DisplayRepositoryImpl implements DisplayRepository {
   Future<ResponseWrapper<List<ViewModule>>> getViewModulesByTabId({
     required int tabId,
     required int page,
+    required bool isRefresh,
   }) async {
-    final response = await _displayApi.getViewModulesByTabId(tabId, page);
+    final cacheKey = '$tabId';
 
-    return response.toModel<List<ViewModule>>(
-      response.data?.map((viewModuleDto) => viewModuleDto.toModel()).toList() ??
-          [],
+    if (isRefresh) {
+      await _displayDao.clearViewModules(cacheKey);
+    }
+
+    final List<ViewModule> cachedViewModules =
+        await _displayDao.getViewModules(cacheKey, page);
+
+    if (cachedViewModules.isNotEmpty) {
+      return ResponseWrapper(status: 'SUCCESS', data: cachedViewModules);
+    }
+
+    final response = await _displayApi.getViewModulesByTabId(tabId, page);
+    final viewModules = response.data?.map((e) => e.toModel()).toList() ?? [];
+
+    await _displayDao.insertViewModules(
+      cacheKey,
+      page,
+      ViewModuleListEntity(
+        viewModules: viewModules.map((e) => e.toEntity()).toList(),
+      ),
     );
+
+    return response.toModel<List<ViewModule>>(viewModules);
   }
 
   @override

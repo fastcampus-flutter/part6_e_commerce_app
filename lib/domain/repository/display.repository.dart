@@ -13,6 +13,7 @@ abstract class DisplayRepository extends Repository {
   Future<ResponseWrapper<List<ViewModule>>> getViewModulesByTabId({
     required int tabId,
     required int page,
+    required bool isRefresh,
   });
 
   /// 장바구니 리스트 불러오기
