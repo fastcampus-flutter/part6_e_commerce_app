@@ -6,7 +6,7 @@ import '../../base/local.usecase.dart';
 
 class GetCartListUsecase extends LocalUsecase<DisplayRepository> {
   GetCartListUsecase();
-
+  
   @override
   Future call(DisplayRepository repository) async {
     final result = await repository.getCartList();

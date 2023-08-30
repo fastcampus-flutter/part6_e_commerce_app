@@ -7,4 +7,5 @@ class RoutePath {
 
   /// cart_list
   static const String cartList = '/cart-list';
+
 }

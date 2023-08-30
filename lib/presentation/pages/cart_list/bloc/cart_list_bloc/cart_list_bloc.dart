@@ -12,9 +12,18 @@ import '../../../../../domain/usecase/display/cart/cart.usecase.dart';
 import '../../../../../domain/usecase/display/cart/change_cart_qty.usecase.dart';
 import '../../../../../domain/usecase/display/display.usecase.dart';
 
-part 'cart_list_state.dart';
+import '../../../../../domain/model/display/cart/cart.model.dart';
+import '../../../../../domain/model/display/product_info/product_info.model.dart';
+import '../../../../../domain/usecase/display/cart/add_cart_list.usecase.dart';
+import '../../../../../domain/usecase/display/cart/change_cart_qty.usecase.dart';
+import '../../../../../domain/usecase/display/cart/clear_cart_list.usecase.dart';
+import '../../../../../domain/usecase/display/cart/delete_cart.usecase.dart';
+import '../../../../../domain/usecase/display/cart/get_cart_list.usecase.dart';
+import '../../../../../domain/usecase/display/display.usecase.dart';
 
 part 'cart_list_event.dart';
+
+part 'cart_list_state.dart';
 
 part 'cart_list_bloc.freezed.dart';
 
@@ -178,7 +187,6 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       // 이미 전체 선택이 되어있는 경우 -> 모두 지움
       if (state.selectedProduct.length == state.cartList.length) {
         emit(state.copyWith(selectedProduct: [], totalPrice: 0));
-
         return;
       }
 
@@ -266,6 +274,7 @@ class CartListBloc extends Bloc<CartListEvent, CartListState> {
       ));
     }
   }
+
 
   int _calTotalPrice(List<String> selectedIds, List<Cart> carts) {
     int price = 0;

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../../core/utils/extensions.dart';
+import '../../../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../../bloc/cart_bloc/cart_bloc.dart';
 
 const double _buttonHeight = 48;
@@ -39,6 +40,10 @@ class AddCartBtn extends StatelessWidget {
             ),
           ]),
         ),
+        onTap: () => context.read<CartListBloc>().add(CartListAdded(
+              quantity: cartBlocState.quantity,
+              productInfo: cartBlocState.productInfo,
+            )),
       ),
       //TODO 장바구니 담기
       onTap: () {},

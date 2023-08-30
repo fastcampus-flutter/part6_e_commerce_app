@@ -5,6 +5,7 @@ import '../../../repository/display.repository.dart';
 import '../../base/local.usecase.dart';
 
 class DeleteCartUsecase extends LocalUsecase<DisplayRepository> {
+
   final List<String> productIds;
 
   DeleteCartUsecase({required this.productIds});

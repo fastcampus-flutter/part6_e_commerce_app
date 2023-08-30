@@ -17,6 +17,8 @@ class AddCartButton extends StatelessWidget {
       right: 8,
       bottom: 8,
       child: GestureDetector(
+        //TODO 장바구니 바텀시트 호출
+        onTap: null,
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).primaryColor.withOpacity(0.47),
@@ -29,7 +31,10 @@ class AddCartButton extends StatelessWidget {
               AppIcons.cart,
               width: 20,
               height: 20,
-              colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                AppColors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),
