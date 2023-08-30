@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
+import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../domain/model/display/display.model.dart';
 import 'factory/view_module_widget.dart';
 
@@ -54,35 +55,30 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
   Widget build(BuildContext context) {
     List<ProductInfo> products = widget.info.products;
 
-    return RawGestureDetector(
-      child: AspectRatio(
-        aspectRatio: 375 / 340,
-        child: Stack(
-          children: [
-            PageView.builder(
-              controller: pageController,
-              onPageChanged: (page) {
-                setState(() {
-                  currentPage = page % products.length + 1;
-                });
-              },
-              itemBuilder: (_, index) {
-                String src = products[index % products.length].imageUrl;
+    return AspectRatio(
+      aspectRatio: 375 / 340,
+      child: Stack(
+        children: [
+          PageView.builder(
+            controller: pageController,
+            onPageChanged: (page) {
+              setState(() {
+                currentPage = page % products.length + 1;
+              });
+            },
+            itemBuilder: (_, index) {
+              String src = products[index % products.length].imageUrl;
 
-                return Image.network(
-                  src,
-                  fit: BoxFit.cover,
-                );
-              },
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: PageCountWidget(
-                  currentPage: currentPage,
-                  totalPage: products.length,
-                ),
+              return CommonImage(src);
+            },
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: PageCountWidget(
+                currentPage: currentPage,
+                totalPage: products.length,
               ),
             ),
           ],

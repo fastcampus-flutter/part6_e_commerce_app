@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../../core/theme/custom/custom_theme.dart';
+import '../../../../../../core/utils/component/common_image.dart';
 import '../../../../../../core/utils/extensions.dart';
 import '../../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'add_cart_button.dart';
@@ -36,10 +37,7 @@ class ProductCardWidget extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: imageAspect,
-              child: Image.network(
-                productInfo.imageUrl,
-                fit: BoxFit.cover,
-              ),
+              child: CommonImage(productInfo.imageUrl),
             ),
             AddCartButton(productInfo),
           ],

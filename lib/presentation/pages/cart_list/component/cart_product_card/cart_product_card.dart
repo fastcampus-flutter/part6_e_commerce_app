@@ -6,6 +6,7 @@ import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
+import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../domain/model/display/cart/cart.model.dart';
 
@@ -80,11 +81,11 @@ class CartProductCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
                                 // 상품 이미지
-                                Image.network(
+                                CommonImage(
                                   cart.product.imageUrl,
                                   width: 60,
-                                  fit: BoxFit.cover,
                                 ),
+
                                 const SizedBox(width: 20),
 
                                 // 상품 정보
