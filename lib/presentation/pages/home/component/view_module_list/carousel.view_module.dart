@@ -1,11 +1,11 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../domain/model/display/display.model.dart';
-import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'factory/view_module_widget.dart';
 
 class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
@@ -81,10 +81,42 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
                 totalPage: products.length,
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      gestures: {
+        CustomGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<CustomGestureRecognizer>(
+          () => CustomGestureRecognizer(),
+          (CustomGestureRecognizer instance) {
+            instance.onDown = (_) {
+              if (_timer.isActive) {
+                _timer.cancel();
+              }
+            };
+
+            instance.onCancel = () {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+
+            instance.onEnd = (_) {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+          },
+        ),
+      },
     );
+  }
+}
+
+class CustomGestureRecognizer extends HorizontalDragGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
   }
 }
 

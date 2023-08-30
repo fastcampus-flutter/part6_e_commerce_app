@@ -139,7 +139,7 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
     required int tabId,
     int page = 1,
   }) async {
-    return await _displayUsecase.excute(
+    return await _displayUsecase.execute(
       usecase: GetViewModulesUsecase(tabId: tabId, page: page),
     );
   }

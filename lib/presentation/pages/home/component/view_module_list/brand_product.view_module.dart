@@ -7,7 +7,6 @@ import '../../../../../core/theme/custom/custom_theme.dart';
 import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../domain/model/display/display.model.dart';
-import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'factory/view_module_widget.dart';
 import 'widget/view_module_padding.dart';
 import 'widget/view_module_title.dart';

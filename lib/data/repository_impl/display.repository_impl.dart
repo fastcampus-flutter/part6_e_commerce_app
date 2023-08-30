@@ -1,9 +1,8 @@
 import 'package:injectable/injectable.dart';
 
 import '../../core/utils/constant.dart';
-import '../../domain/model/display/cart/cart.model.dart';
-import '../../domain/model/display/menu/menu.model.dart';
-import '../../domain/model/display/view_module/view_module.model.dart';
+import '../../domain/model/display/display.model.dart';
+
 import '../../domain/repository/display.repository.dart';
 import '../data_source/local_storage/display.dao.dart';
 import '../data_source/remote/display/display.api.dart';
