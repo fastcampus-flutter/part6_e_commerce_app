@@ -20,12 +20,21 @@ dependencies:
   injectable: ^2.1.2
   json_annotation: ^4.8.1
   logger: ^1.4.0
+  mocktail: ^1.0.0
   retrofit: ^4.0.1
   stream_transform: ^2.1.0
   intl:
   lottie:
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  bootpay:
+  kakao_flutter_sdk_user:
+  firebase_core: ^2.15.0
+  firebase_auth: ^4.7.2
+  shimmer:
+  flutter_dotenv:
+  firebase_crashlytics: ^3.3.5
+
 
 dev_dependencies:
   build_runner: ^2.4.6
@@ -45,3 +54,4 @@ flutter:
     - assets/image/
     - assets/svg/
     - assets/lottie/
+    - assets/env/

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../core/utils/snack_bar/common_snack_bar.dart';
 import '../../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
+
 import 'widgets/add_cart_btn.dart';
 import 'widgets/cart_price_info.dart';
 import 'widgets/cart_product_info.dart';

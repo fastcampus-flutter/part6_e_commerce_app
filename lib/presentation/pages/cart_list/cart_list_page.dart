@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+
 import '../../../core/theme/constant/app_icons.dart';
 import '../../../core/theme/custom/custom_font_weight.dart';
 import '../../../core/theme/custom/custom_theme.dart';
 import '../../../core/utils/constant.dart';
+
 import '../../main/component/top_app_bar/widgets/svg_icon_button.dart';
 import 'bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'component/cart_product_card.dart';
@@ -13,6 +15,7 @@ import 'component/cart_total_price.dart';
 
 class CartListPage extends StatelessWidget {
   const CartListPage({super.key});
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class CartListPage extends StatelessWidget {
 
 class CartListView extends StatelessWidget {
   const CartListView({super.key});
+
 
   @override
   Widget build(BuildContext context) {

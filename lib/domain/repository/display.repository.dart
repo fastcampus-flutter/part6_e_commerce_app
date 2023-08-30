@@ -1,5 +1,6 @@
 import '../../core/utils/constant.dart';
 import '../../data/dto/common/response_wrapper/response_wrapper.dart';
+import '../model/display/cart/cart.model.dart';
 import '../model/display/display.model.dart';
 
 import 'repository.dart';

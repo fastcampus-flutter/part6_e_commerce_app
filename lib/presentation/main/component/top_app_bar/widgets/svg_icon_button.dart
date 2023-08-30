@@ -13,6 +13,7 @@ class SvgIconButton extends StatelessWidget {
 
   final double padding;
   final String icon;
+
   final Color color;
   final double size;
   final VoidCallback? onPressed;

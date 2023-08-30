@@ -6,6 +6,7 @@ import '../../../repository/display.repository.dart';
 import '../../base/local.usecase.dart';
 
 class AddCartListUsecase extends LocalUsecase<DisplayRepository> {
+
   final Cart cart;
 
   AddCartListUsecase({required this.cart});

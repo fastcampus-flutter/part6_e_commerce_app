@@ -5,6 +5,7 @@ import '../../../repository/display.repository.dart';
 import '../../base/local.usecase.dart';
 
 class ChangeCartQtyUsecase extends LocalUsecase<DisplayRepository> {
+
   final String productId;
   final int qty;
 

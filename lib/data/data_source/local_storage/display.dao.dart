@@ -60,7 +60,8 @@ class DisplayDao {
     );
   }
 
-// 장바구니 전체 삭제
+
+  // 장바구니 전체 삭제
   Future<ResponseWrapper<List<CartEntity>>> clearCarts() async {
     final localStorage = await Hive.openBox<CartEntity>(_cartDb);
     await localStorage.clear();
@@ -72,6 +73,7 @@ class DisplayDao {
       data: [],
     );
   }
+
 
   ///장바구니 수량 변경
   Future<ResponseWrapper<List<CartEntity>>> changeQtyCart(

@@ -12,6 +12,7 @@ import 'component/top_app_bar/top_app_bar.dart';
 import 'cubit/bottom_nav_cubit.dart';
 import 'cubit/mall_type_cubit.dart';
 import 'utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
+import 'utils/snack_bar/common_snack_bar.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -37,11 +38,10 @@ class MainScreenView extends StatelessWidget {
       appBar: const TopAppBar(),
       body: BlocListener<CartBloc, CartState>(
         listener: (_, state) async {
-          final bottomSheet = cartBottomSheet(context)
+          final bottomSheet = await cartBottomSheet(context)
               .whenComplete(() => context.read<CartBloc>().add(CartClosed()));
 
-          final bool isSuccess = await bottomSheet ?? false;
-          print('[test] isSuccess : $isSuccess');
+          final isSuccess = await bottomSheet ?? false;
           if (isSuccess) {
             CommonSnackBar.addCartSnackBar(context);
           }
