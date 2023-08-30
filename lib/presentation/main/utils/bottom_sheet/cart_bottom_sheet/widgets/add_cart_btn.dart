@@ -40,10 +40,6 @@ class AddCartBtn extends StatelessWidget {
             ),
           ]),
         ),
-        onTap: () => context.read<CartListBloc>().add(CartListAdded(
-              quantity: cartBlocState.quantity,
-              productInfo: cartBlocState.productInfo,
-            )),
       ),
       //TODO 장바구니 담기
       onTap: () {},

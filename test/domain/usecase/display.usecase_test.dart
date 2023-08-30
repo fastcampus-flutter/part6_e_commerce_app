@@ -37,7 +37,7 @@ void main() {
       when(() => usecase.call(displayRepository))
           .thenAnswer((_) async => result);
 
-      final actual = await displayUsecase.excute(usecase: usecase);
+      final actual = await displayUsecase.execute(usecase: usecase);
       expect(actual, result);
     });
 
@@ -50,7 +50,7 @@ void main() {
       when(() => usecase.call(displayRepository))
           .thenAnswer((_) async => result);
 
-      final actual = await displayUsecase.excute(usecase: usecase);
+      final actual = await displayUsecase.execute(usecase: usecase);
       expect(actual, result);
     });
   });
