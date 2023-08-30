@@ -2,13 +2,16 @@ import '../../../../core/utils/error/error_response.dart';
 import '../../../../core/utils/extensions.dart';
 import '../../../model/common/result/result.dart';
 import '../../../repository/display.repository.dart';
-import '../../base/remote.usecase.dart';
+import '../../base/local.usecase.dart';
 
-class ChangeCartQtyUsecase extends RemoteUsecase<DisplayRepository> {
+class ChangeCartQtyUsecase extends LocalUsecase<DisplayRepository> {
   final String productId;
   final int qty;
 
-  ChangeCartQtyUsecase({required this.productId, required this.qty});
+  ChangeCartQtyUsecase({
+    required this.productId,
+    required this.qty,
+  });
 
   @override
   Future call(DisplayRepository repository) async {

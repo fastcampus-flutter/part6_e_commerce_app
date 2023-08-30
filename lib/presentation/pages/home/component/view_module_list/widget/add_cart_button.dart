@@ -29,7 +29,10 @@ class AddCartButton extends StatelessWidget {
               AppIcons.cart,
               width: 20,
               height: 20,
-              colorFilter: ColorFilter.mode(AppColors.white, BlendMode.srcIn),
+              colorFilter: ColorFilter.mode(
+                AppColors.white,
+                BlendMode.srcIn,
+              ),
             ),
           ),
         ),

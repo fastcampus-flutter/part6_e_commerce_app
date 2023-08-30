@@ -35,10 +35,6 @@ class CartListDeleted extends CartListEvent {
   CartListDeleted({required this.productIds});
 }
 
-class CartListCleared extends CartListEvent {
-  CartListCleared();
-}
-
 class CartListQtyDecreased extends CartListEvent {
   final Cart cart;
 

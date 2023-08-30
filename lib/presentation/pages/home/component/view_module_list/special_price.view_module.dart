@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
+import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import '../../../../../domain/model/display/view_module/view_module.model.dart';
@@ -108,10 +109,7 @@ class _SpecialPriceProduct extends StatelessWidget {
           children: [
             AspectRatio(
               aspectRatio: 343 / 174,
-              child: Image.network(
-                productInfo.imageUrl,
-                fit: BoxFit.cover,
-              ),
+              child: CommonImage(productInfo.imageUrl),
             ),
             AddCartButton(productInfo),
           ],

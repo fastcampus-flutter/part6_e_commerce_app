@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/theme/constant/app_icons.dart';
 import '../../../../core/theme/custom/custom_app_bar.dart';
 import '../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../core/utils/constant.dart';
+
 import '../../../pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import '../../../routes/route_path.dart';
 import '../../cubit/mall_type_cubit.dart';
+import '../../utils/server_selector.dart';
 import 'widgets/svg_icon_button.dart';
 
 class HomeAppBar extends StatelessWidget {
@@ -26,7 +31,16 @@ class HomeAppBar extends StatelessWidget {
               icon: AppIcons.mainLogo,
               color: state.theme.logoColor,
               padding: 8,
-              onPressed: null,
+              onPressed: dotenv.env['FLAVOR'] == 'dev'
+                  ? () async {
+                      await showDialog<bool>(
+                        context: context,
+                        builder: (_) {
+                          return ServerSelector();
+                        },
+                      );
+                    }
+                  : null,
             ),
             title: AnimatedContainer(
               decoration: BoxDecoration(

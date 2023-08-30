@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../../core/theme/constant/app_icons.dart';
 import '../../../../../core/theme/custom/custom_font_weight.dart';
 import '../../../../../core/theme/custom/custom_theme.dart';
+import '../../../../../core/utils/component/common_image.dart';
 import '../../../../../core/utils/extensions.dart';
 import '../../../../../domain/model/display/display.model.dart';
-import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'factory/view_module_widget.dart';
 import 'widget/view_module_padding.dart';
 import 'widget/view_module_title.dart';
@@ -39,10 +39,7 @@ class BrandProductViewModule extends StatelessWidget with ViewModuleWidget {
               padding: EdgeInsets.only(bottom: 13),
               child: AspectRatio(
                 aspectRatio: 343 / 173,
-                child: Image.network(
-                  info.imageUrl,
-                  fit: BoxFit.cover,
-                ),
+                child: CommonImage(info.imageUrl),
               ),
             ),
           if (info.subtitle.isNotEmpty)
@@ -155,10 +152,7 @@ class _BrandProduct extends StatelessWidget {
               borderRadius: BorderRadius.all(
                 Radius.circular(5),
               ),
-              child: Image.network(
-                productInfo.imageUrl,
-                fit: BoxFit.cover,
-              ),
+              child: CommonImage(productInfo.imageUrl),
             ),
           ),
           SizedBox(

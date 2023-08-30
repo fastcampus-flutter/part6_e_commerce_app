@@ -141,7 +141,7 @@ class ViewModuleBloc extends Bloc<ViewModuleEvent, ViewModuleState> {
     int page = 1,
     required bool isRefresh,
   }) async {
-    return await _displayUsecase.excute(
+    return await _displayUsecase.execute(
       usecase:
           GetViewModulesUsecase(tabId: tabId, page: page, isRefresh: isRefresh),
     );
