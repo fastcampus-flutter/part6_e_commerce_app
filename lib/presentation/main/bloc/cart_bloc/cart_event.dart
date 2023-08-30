@@ -18,3 +18,11 @@ class CartOpened extends CartEvent {
 class CartClosed extends CartEvent {
   CartClosed();
 }
+
+class CartQuantityIncreased extends CartEvent {
+  CartQuantityIncreased();
+}
+
+class CartQuantityDecreased extends CartEvent {
+  CartQuantityDecreased();
+}

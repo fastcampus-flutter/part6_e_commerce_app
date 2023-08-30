@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../../core/theme/constant/app_icons.dart';
+import '../../../../../../domain/model/display/product_info/product_info.model.dart';
+import '../../../../../main/bloc/cart_bloc/cart_bloc.dart';
 
 class AddCartButton extends StatelessWidget {
-  const AddCartButton({Key? key}) : super(key: key);
+  const AddCartButton(this.productInfo, {Key? key}) : super(key: key);
+  final ProductInfo productInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,7 @@ class AddCartButton extends StatelessWidget {
             ),
           ),
         ),
+        onTap: () => context.read<CartBloc>().add(CartOpened(productInfo)),
       ),
     );
   }

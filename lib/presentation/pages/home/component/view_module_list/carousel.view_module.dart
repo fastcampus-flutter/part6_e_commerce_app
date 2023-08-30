@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
@@ -54,39 +55,73 @@ class _CarouselViewModuleState extends State<CarouselViewModule> {
   Widget build(BuildContext context) {
     List<ProductInfo> products = widget.info.products;
 
-    return AspectRatio(
-      aspectRatio: 375 / 340,
-      child: Stack(
-        children: [
-          PageView.builder(
-            controller: pageController,
-            onPageChanged: (page) {
-              setState(() {
-                currentPage = page % products.length + 1;
-              });
-            },
-            itemBuilder: (_, index) {
-              String src = products[index % products.length].imageUrl;
+    return RawGestureDetector(
+      child: AspectRatio(
+        aspectRatio: 375 / 340,
+        child: Stack(
+          children: [
+            PageView.builder(
+              controller: pageController,
+              onPageChanged: (page) {
+                setState(() {
+                  currentPage = page % products.length + 1;
+                });
+              },
+              itemBuilder: (_, index) {
+                String src = products[index % products.length].imageUrl;
 
-              return Image.network(
-                src,
-                fit: BoxFit.cover,
-              );
-            },
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: PageCountWidget(
-                currentPage: currentPage,
-                totalPage: products.length,
+                return Image.network(
+                  src,
+                  fit: BoxFit.cover,
+                );
+              },
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: PageCountWidget(
+                  currentPage: currentPage,
+                  totalPage: products.length,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      gestures: {
+        CustomGestureRecognizer:
+            GestureRecognizerFactoryWithHandlers<CustomGestureRecognizer>(
+          () => CustomGestureRecognizer(),
+          (CustomGestureRecognizer instance) {
+            instance.onDown = (_) {
+              if (_timer.isActive) {
+                _timer.cancel();
+              }
+            };
+
+            instance.onCancel = () {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+
+            instance.onEnd = (_) {
+              if (!_timer.isActive) {
+                _timer = periodicTimer();
+              }
+            };
+          },
+        ),
+      },
     );
+  }
+}
+
+class CustomGestureRecognizer extends HorizontalDragGestureRecognizer {
+  @override
+  void rejectGesture(int pointer) {
+    acceptGesture(pointer);
   }
 }
 

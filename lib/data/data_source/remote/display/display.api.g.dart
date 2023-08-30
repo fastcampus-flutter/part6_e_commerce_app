@@ -59,7 +59,7 @@ class _DisplayApi implements DisplayApi {
     int page,
   ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{r'page': page};
+    final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio.fetch<Map<String, dynamic>>(
@@ -70,7 +70,7 @@ class _DisplayApi implements DisplayApi {
     )
             .compose(
               _dio.options,
-              '/api/view-modules/${tabId}',
+              '/api/view-modules/${tabId}/${page}',
               queryParameters: queryParameters,
               data: _data,
             )
