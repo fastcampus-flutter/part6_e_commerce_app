@@ -1,11 +1,48 @@
 import 'package:hive/hive.dart';
 
+import '../../../domain/model/display/view_module/view_module.model.dart';
 import '../../dto/common/response_wrapper/response_wrapper.dart';
 import '../../entity/display/cart/cart.entity.dart';
+import '../../entity/display/view_module_list/view_module_list.entity.dart';
+import '../../mapper/display.mapper.dart';
 
 const String _cartDb = 'CART_DB';
 
 class DisplayDao {
+  //뷰 모듈 불러오기
+  Future<List<ViewModule>> getViewModules(String key, page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    final ViewModuleListEntity? result = await localStorage.get(page);
+    if (result == null) return [];
+
+    return result.viewModules.map((e) => e.toModel()).toList();
+  }
+
+  //뷰 모듈 저장하기
+  Future<void> insertViewModules(
+    String key,
+    int page,
+    ViewModuleListEntity viewModules,
+  ) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+    await localStorage.put(page, viewModules);
+  }
+
+  // 뷰모듈 리스트 리프레쉬
+  Future<void> clearViewModules(String key) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    await localStorage.clear();
+  }
+
+  // 뷰모듈 리스트 삭제
+  Future<void> deleteViewModules(String key, int page) async {
+    final localStorage = await Hive.openBox<ViewModuleListEntity>(key);
+
+    await localStorage.delete(page);
+  }
+
   /// 장바구니 리스트 불러오기
   Future<ResponseWrapper<List<CartEntity>>> getCartList() async {
     final localStorage = await Hive.openBox<CartEntity>(_cartDb);

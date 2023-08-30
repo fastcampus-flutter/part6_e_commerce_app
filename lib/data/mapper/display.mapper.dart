@@ -1,6 +1,12 @@
 import '../../domain/model/display/display.model.dart';
 import '../dto/display/display.dto.dart';
+import '../dto/display/product_info/product_info.dto.dart';
+import '../entity/display/cart/cart.entity.dart';
+import '../entity/display/product_info/product_info.entity.dart';
+import '../entity/display/view_module/view_module.entity.dart';
+
 import '../entity/display/display.entity.dart';
+
 
 extension MenuEx on MenuDto {
   Menu toModel() {
@@ -21,6 +27,36 @@ extension ViewModuleDtoEx on ViewModuleDto {
       time: time ?? -1,
       products: products?.map((dto) => dto.toModel()).toList() ?? [],
       tabs: tabs ?? [],
+    );
+  }
+}
+
+/// ENTITY -> MODEL
+extension ViewModuleEntityEx on ViewModuleEntity {
+  ViewModule toModel() {
+    return ViewModule(
+      type: type,
+      title: title,
+      subtitle: subtitle,
+      imageUrl: imageUrl,
+      time: time,
+      products: products.map((entity) => entity.toModel()).toList(),
+      tabs: tabs,
+    );
+  }
+}
+
+/// MODEL -> ENTITY
+extension ViewModuleEx on ViewModule {
+  ViewModuleEntity toEntity() {
+    return ViewModuleEntity(
+      type: type,
+      title: title,
+      subtitle: subtitle,
+      imageUrl: imageUrl,
+      time: time,
+      products: products.map((model) => model.toEntity()).toList(),
+      tabs: tabs,
     );
   }
 }

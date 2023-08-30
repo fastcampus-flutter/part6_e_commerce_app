@@ -8,13 +8,21 @@ import '../../base/remote.usecase.dart';
 class GetViewModulesUsecase extends RemoteUsecase<DisplayRepository> {
   final int tabId;
   final int page;
+  final bool isRefresh;
 
-  GetViewModulesUsecase({required this.tabId, this.page = 1});
+  GetViewModulesUsecase({
+    required this.tabId,
+    this.page = 1,
+    required this.isRefresh,
+  });
 
   @override
   Future<Result<List<ViewModule>>> call(DisplayRepository repository) async {
-    final result =
-        await repository.getViewModulesByTabId(tabId: tabId, page: page);
+    final result = await repository.getViewModulesByTabId(
+      tabId: tabId,
+      page: page,
+      isRefresh: isRefresh,
+    );
 
     return (result.status.isSuccess)
         ? Result.success(result.data ?? [])
