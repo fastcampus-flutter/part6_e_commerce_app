@@ -59,7 +59,7 @@ class MenuBloc extends Bloc<MenuEvent, MenuState> {
   }
 
   Future<Result<List<Menu>>> _fetch({required MallType mallType}) async {
-    return await _displayUsecase.excute(
+    return await _displayUsecase.execute(
       usecase: GetMenusUsecase(mallType: mallType),
     );
   }

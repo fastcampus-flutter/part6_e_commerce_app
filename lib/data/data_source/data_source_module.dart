@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 
+
 import '../../core/utils/rest_client/rest_client.dart';
 import '../../main.dart';
 import 'local_storage/display.dao.dart';

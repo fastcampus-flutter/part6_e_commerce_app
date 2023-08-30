@@ -21,6 +21,18 @@ import 'package:lecture_e_commerce/data/data_source/remote/user/user.api.dart'
     as _i11;
 import 'package:lecture_e_commerce/data/repository_impl/display.repository_impl.dart'
     as _i7;
+import 'package:lecture_e_commerce/domain/repository/display.repository.dart'
+    as _i6;
+import 'package:lecture_e_commerce/domain/usecase/display/display.usecase.dart'
+    as _i8;
+import 'package:lecture_e_commerce/presentation/main/bloc/cart_bloc/cart_bloc.dart'
+    as _i3;
+import 'package:lecture_e_commerce/presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart'
+    as _i11;
+import 'package:lecture_e_commerce/presentation/pages/home/bloc/menu_bloc/menu_bloc.dart'
+    as _i9;
+import 'package:lecture_e_commerce/presentation/pages/home/bloc/view_module_bloc/view_module_bloc.dart'
+    as _i10;
 import 'package:lecture_e_commerce/data/repository_impl/user.repository_impl.dart'
     as _i13;
 import 'package:lecture_e_commerce/domain/repository/display.repository.dart'
@@ -79,5 +91,6 @@ extension GetItInjectableX on _i1.GetIt {
     return this;
   }
 }
+
 
 class _$DataSourceModule extends _i18.DataSourceModule {}

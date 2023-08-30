@@ -17,7 +17,9 @@ import 'dependency_injection.dart';
 
 import 'firebase_options.dart';
 import 'presentation/main/bloc/cart_bloc/cart_bloc.dart';
+
 import 'presentation/main/bloc/user_bloc/user_bloc.dart';
+
 import 'presentation/pages/cart_list/bloc/cart_list_bloc/cart_list_bloc.dart';
 import 'presentation/routes/routes.dart';
 
@@ -76,6 +78,7 @@ class MainApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (_) => getIt<CartListBloc>()..add(CartListInitialized()),
+          lazy: false,
         ),
       ],
       child: MaterialApp.router(

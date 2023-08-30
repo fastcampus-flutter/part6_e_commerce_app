@@ -60,6 +60,7 @@ extension TextStyleEx on TextStyle {
     return copyWith(
       color: CustomTheme.colorScheme.contentFourth,
       decoration: TextDecoration.lineThrough,
+      decorationColor: CustomTheme.colorScheme.contentFourth,
     ).regular;
   }
 

@@ -1,10 +1,11 @@
 import '../../domain/model/display/cart/cart.model.dart';
 import '../../domain/model/display/display.model.dart';
-import '../../domain/model/display/product_info/product_info.model.dart';
 import '../dto/display/display.dto.dart';
+import '../entity/display/display.entity.dart';
 import '../dto/display/product_info/product_info.dto.dart';
 import '../entity/display/cart/cart.entity.dart';
 import '../entity/display/product_info/product_info.entity.dart';
+
 
 extension MenuEx on MenuDto {
   Menu toModel() {

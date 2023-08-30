@@ -114,7 +114,9 @@ class __$$_CartCopyWithImpl<$Res> extends _$CartCopyWithImpl<$Res, _$_Cart>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Cart implements _Cart {
+
+class _$_Cart with DiagnosticableTreeMixin implements _Cart {
+
   const _$_Cart({required this.quantity, required this.product});
 
   factory _$_Cart.fromJson(Map<String, dynamic> json) => _$$_CartFromJson(json);
@@ -125,8 +127,17 @@ class _$_Cart implements _Cart {
   final ProductInfo product;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'Cart(quantity: $quantity, product: $product)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'Cart'))
+      ..add(DiagnosticsProperty('quantity', quantity))
+      ..add(DiagnosticsProperty('product', product));
   }
 
   @override
