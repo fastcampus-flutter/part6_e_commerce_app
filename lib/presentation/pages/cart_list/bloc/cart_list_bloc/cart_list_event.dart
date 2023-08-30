@@ -46,3 +46,15 @@ class CartListQtyIncreased extends CartListEvent {
 
   CartListQtyIncreased({required this.cart});
 }
+
+class CartListQtyDecreased extends CartListEvent {
+  final Cart cart;
+
+  CartListQtyDecreased({required this.cart});
+}
+
+class CartListQtyIncreased extends CartListEvent {
+  final Cart cart;
+
+  CartListQtyIncreased({required this.cart});
+}
