@@ -5,7 +5,6 @@ import '../../../repository/display.repository.dart';
 import '../../base/local.usecase.dart';
 
 class ChangeCartQtyUsecase extends LocalUsecase<DisplayRepository> {
-
   final String productId;
   final int qty;
 
@@ -17,7 +16,9 @@ class ChangeCartQtyUsecase extends LocalUsecase<DisplayRepository> {
   @override
   Future call(DisplayRepository repository) async {
     final result = await repository.changeCartQuantityByPrdId(
-        productId: productId, qty: qty);
+      productId: productId,
+      qty: qty,
+    );
 
     return (result.status.isSuccess)
         ? Result.success(result.data)

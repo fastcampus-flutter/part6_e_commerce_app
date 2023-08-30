@@ -12,7 +12,6 @@ import 'component/top_app_bar/top_app_bar.dart';
 import 'cubit/bottom_nav_cubit.dart';
 import 'cubit/mall_type_cubit.dart';
 import 'utils/bottom_sheet/cart_bottom_sheet/cart_bottom_sheet.dart';
-import 'utils/snack_bar/common_snack_bar.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});

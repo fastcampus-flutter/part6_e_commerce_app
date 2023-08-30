@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import '../../../../../core/theme/constant/app_colors.dart';
 import '../../../../../domain/model/display/display.model.dart';
-import '../../../../../domain/model/display/product_info/product_info.model.dart';
 import 'factory/view_module_widget.dart';
 
 class CarouselViewModule extends StatefulWidget with ViewModuleWidget {
