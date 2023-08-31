@@ -9,7 +9,6 @@ import '../../../core/theme/constant/app_icons.dart';
 import '../../main/bloc/user_bloc/user_bloc.dart';
 import '../../routes/route_path.dart';
 
-// TODO bloc로 로그인 개발
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
