@@ -43,7 +43,7 @@ void main(name, options) async {
   configureDependencies();
 
   KakaoSdk.init(
-    nativeAppKey: '1ba462d2655c5f7f7f7010562bd222f8',
+    nativeAppKey: '카카오 네이티브 키',
   );
 
   // firebase initialize

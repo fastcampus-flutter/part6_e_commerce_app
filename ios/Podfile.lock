@@ -1,5 +1,4 @@
 PODS:
-
   - bootpay_webview_flutter_wkwebview (0.0.1):
     - Flutter
   - Firebase/Auth (10.12.0):
@@ -61,6 +60,9 @@ PODS:
   - fluttertoast (0.0.2):
     - Flutter
     - Toast
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
   - GoogleDataTransport (9.2.5):
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
@@ -101,6 +103,9 @@ PODS:
   - shared_preferences_foundation (0.0.1):
     - Flutter
     - FlutterMacOS
+  - sqflite (0.0.3):
+    - Flutter
+    - FMDB (>= 2.7.5)
   - Toast (4.0.0)
 
 DEPENDENCIES:
@@ -114,6 +119,7 @@ DEPENDENCIES:
   - package_info (from `.symlinks/plugins/package_info/ios`)
   - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/darwin`)
   - shared_preferences_foundation (from `.symlinks/plugins/shared_preferences_foundation/darwin`)
+  - sqflite (from `.symlinks/plugins/sqflite/ios`)
 
 SPEC REPOS:
   trunk:
@@ -126,6 +132,7 @@ SPEC REPOS:
     - FirebaseCrashlytics
     - FirebaseInstallations
     - FirebaseSessions
+    - FMDB
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
@@ -155,6 +162,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/path_provider_foundation/darwin"
   shared_preferences_foundation:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
+  sqflite:
+    :path: ".symlinks/plugins/sqflite/ios"
 
 SPEC CHECKSUMS:
   bootpay_webview_flutter_wkwebview: baf2884591d215ae8bf446f97f1acc282f9527a6
@@ -172,6 +181,7 @@ SPEC CHECKSUMS:
   FirebaseSessions: 991fb4c20b3505eef125f7cbfa20a5b5b189c2a4
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
   fluttertoast: eb263d302cc92e04176c053d2385237e9f43fad0
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   GoogleDataTransport: 54dee9d48d14580407f8f5fbf2f496e92437a2f2
   GoogleUtilities: c63691989bf362ba0505507da00eeb326192e83e
   GTMSessionFetcher: e8647203b65cee28c5f73d0f473d096653945e72
@@ -182,6 +192,7 @@ SPEC CHECKSUMS:
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
   PromisesSwift: 28dca69a9c40779916ac2d6985a0192a5cb4a265
   shared_preferences_foundation: 5b919d13b803cadd15ed2dc053125c68730e5126
+  sqflite: 31f7eba61e3074736dff8807a9b41581e4f7f15a
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
 PODFILE CHECKSUM: d664c7c642c1d6dd8bb9d59db22f8ee46c4b717f

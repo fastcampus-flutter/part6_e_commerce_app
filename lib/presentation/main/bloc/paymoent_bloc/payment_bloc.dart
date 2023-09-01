@@ -143,8 +143,8 @@ Payload _getPayLoad(
     return item;
   }).toList();
 
-  payload.androidApplicationId = "64566178755e27001b376047";
-  payload.iosApplicationId = "64566178755e27001b376048";
+  payload.androidApplicationId = "Android 키";
+  payload.iosApplicationId = "iOS 키";
 
   payload.pg = 'kcp';
   payload.orderName = cartList.length > 1
