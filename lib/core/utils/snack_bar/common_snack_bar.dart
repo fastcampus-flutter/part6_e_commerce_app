@@ -53,8 +53,6 @@ class CommonSnackBar {
   }
 
   static addCartSnackBar(BuildContext context) {
-    print('[test] dddd');
-
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(

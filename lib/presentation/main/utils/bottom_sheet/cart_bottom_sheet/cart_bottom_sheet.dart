@@ -21,7 +21,6 @@ Future<bool?> cartBottomSheet(BuildContext context) {
               CommonSnackBar.errorSnackBar(context, error: state.error);
             }
             if (context.canPop()) {
-              print('[test] ${state.status}');
               context.pop(!state.status.isError);
             }
           },
